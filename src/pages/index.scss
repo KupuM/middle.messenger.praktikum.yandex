@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display&family=Noto+Sans:wght@500;600&display=swap');
+
+:root {
+    --black-color: #313131;
+    --gray-color: #8B8B8B;
+    --semi-light-gray-color: #EAEAEA;
+    --light-gray-color: #EFEFEF;
+    --white-color: #FFFFFF;
+    --light-green-color: #26BD1B;
+    --red-alert-color: #F25A47;
+    --font-noto-sans: 'Noto Sans', sans-serif;
+    --font-noto-sans-display-medium: 'Noto Sans Display', sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-noto-sans);
+    font-size: 12px;
+    color: var(--black-color);
+}
+
+.button {
+    width: 280px;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-noto-sans-display-medium);
+    font-size: 13px;
+}
+
+.button_primary {
+    background-color: var(--light-green-color);
+    color: var(--white-color);
+}
+
+.link {
+    text-decoration: none;
+    font-family: var(--font-noto-sans-display-medium);
+}
+
+.link_green {
+    color: var(--light-green-color);
+}
+
+.link_red-alert {
+    color: var(--red-alert-color);
+}
+
+.dev-menu {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+
+    .dev-menu-list {
+        list-style: none;
+        padding: 0;
+
+        .dev-menu-list__item {
+            padding: 8px 0;
+        }
+    }
+}
