@@ -8,7 +8,7 @@
         "dev": "parcel ./src/pages/*.hbs --no-cache --open",
         "build": "parcel build ./src/pages/*.hbs",
         "serve": "node ./server.js",
-        "start": "npm run build &&npm run serve"
+        "start": "npm run build && npm run serve"
     },
     "repository": {
         "type": "git",
