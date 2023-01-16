@@ -1,0 +1,34 @@
+[
+    {
+        "href": "./authorization/login.hbs",
+        "title": "Вход"
+    },
+    {
+        "href": "./authorization/register.hbs",
+        "title": "Регистрация"
+    },
+    {
+        "href": "./chat/chat.hbs",
+        "title": "Чат"
+    },
+    {
+        "href": "./error/error-404.hbs",
+        "title": "Ошибка 404"
+    },
+    {
+        "href": "./error/error-500.hbs",
+        "title": "Ошибка 500"
+    },
+    {
+        "href": "./profile/profile.hbs",
+        "title": "Профиль"
+    },
+    {
+        "href": "./profile/change-profile.hbs",
+        "title": "Редактировать профиль"
+    },
+    {
+        "href": "./profile/change-password.hbs",
+        "title": "Изменить пароль"
+    }
+]

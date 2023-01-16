@@ -1,0 +1,34 @@
+{
+    "name": "middle.messenger.praktikum.yandex",
+    "version": "1.0.0",
+    "description": "",
+    "engine": ">=12",
+    "source": "index.hbs",
+    "scripts": {
+        "dev": "parcel ./src/pages/*.hbs --no-cache --open",
+        "build": "parcel build ./src/pages/*.hbs",
+        "serve": "node ./server.js",
+        "start": "npm run build && npm run serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KupuM/middle.messenger.praktikum.yandex.git"
+    },
+    "author": "Kirill K.<qwerty_poi@mail.ru>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/KupuM/middle.messenger.praktikum.yandex/issues"
+    },
+    "homepage": "https://github.com/KupuM/middle.messenger.praktikum.yandex#readme",
+    "devDependencies": {
+        "@anikin/parcel-transformer-handlebars": "1.0.9",
+        "@parcel/plugin": "2.8.2",
+        "@parcel/transformer-sass": "2.8.2",
+        "parcel": "2.8.2",
+        "parcel-transformer-hbs": "1.0.4"
+    },
+    "dependencies": {
+        "express": "4.18.2",
+        "handlebars": "4.7.7"
+    }
+}

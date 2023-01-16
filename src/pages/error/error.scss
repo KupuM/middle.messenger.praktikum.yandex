@@ -1,0 +1,21 @@
+.error-page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    text-align: center;
+
+    .error-page__heading {
+        font-family: var(--font-noto-sans-display-medium);
+        font-size: 40px;
+    }
+    
+    .error-page__paragraph {
+        font-family: var(--font-noto-sans-display-medium);
+        font-size: 20px;
+    }
+
+    .error-page__footer {
+        padding-top: 50px;
+    }
+}

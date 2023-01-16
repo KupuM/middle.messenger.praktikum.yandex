@@ -1,0 +1,16 @@
+---
+title: 'Ошибка 404'
+styles:
+- '../index.scss'
+- './error.scss'
+---
+{{!< page-layout}}
+<main class="error-page">
+    <section class="error-page__content">
+        <h1 class="error-page__heading">404</h1>
+        <p class="error-page__paragraph">Страница не найдена.</p>
+    </section>
+    <section class="error-page__footer">
+        {{> link href="../chat/chat.hbs" title="Назад к чатам" color-class="link_green"}}
+    </section>
+</main>
