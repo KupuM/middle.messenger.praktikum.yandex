@@ -5,7 +5,7 @@
     "engine": ">=12",
     "source": "index.hbs",
     "scripts": {
-        "dev": "parcel ./src/pages/*.hbs  --port 3000 --no-cache --open",
+        "dev": "parcel ./src/pages/*.hbs --no-cache --open",
         "build": "parcel build ./src/pages/*.hbs",
         "serve": "node ./server.js",
         "start": "npm run build && npm run serve",
