@@ -37,7 +37,6 @@ export default abstract class Block<P extends object = {}> {
     }
 
     private _getPropsAndChildren(propsAndChildren: P) {
-        console.log(`Block _getPropsAndChildren: 61`);
         const props: Record<string, any> = {} as P;
         const children: Record<string, Block<P>> = {} as Record<string, Block<P>>;
 
@@ -46,7 +45,6 @@ export default abstract class Block<P extends object = {}> {
                 children[key] = value;
             } else {
                 props[key] = value;
-                console.log(`props[key] =`, props[key])
             }
         });
 
@@ -96,7 +94,6 @@ export default abstract class Block<P extends object = {}> {
     }
 
     setProps = (nextProps: P): void => {
-        console.log(`Block setProps: 136`);
         if (!nextProps) {
             return;
         }
@@ -113,7 +110,6 @@ export default abstract class Block<P extends object = {}> {
     };
 
     get element(): Nullable<HTMLElement> {
-        console.log(`Block element: 154`);
         return this._element;
     }
 
@@ -136,7 +132,6 @@ export default abstract class Block<P extends object = {}> {
     }
 
     getContent(): HTMLElement {
-        console.log(`Block getContent: 180`);
 		if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
 			setTimeout(() => {
 				if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {

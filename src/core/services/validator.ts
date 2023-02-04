@@ -1,7 +1,6 @@
 export default class Validator {
     checkLogin(value: string): boolean {
         const check = /[A-Za-z0-9]{3,20}/i.test(value) && /^\S+$/.test(value) && /[a-z-_]/i.test(value) && value.length <= 20;
-        console.log(`/[0-9a-z-_]{3,20}/i.test(value) =`, /[0-9a-z-_]{3,20}/i.test(value));
         return check;
     }
 
