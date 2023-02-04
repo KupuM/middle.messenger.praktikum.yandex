@@ -4,10 +4,12 @@ styles:
 - './index.scss'
 ---
 {{!< page-layout}}
-<nav class="dev-menu">
-    <ul class="dev-menu-list">
-        {{#each menu}}
-            <li class="dev-menu-list__item"><a href="{{href}}" title="{{title}}" class="link_green">{{title}}</a></li>
-        {{/each}}
-    </ul>
-</nav>
+<main>
+    <nav class="dev-menu">
+        <ul class="dev-menu-list">
+            {{#each menu}}
+                <li class="dev-menu-list__item"><a href="{{href}}" title="{{title}}" class="link_green">{{title}}</a></li>
+            {{/each}}
+        </ul>
+    </nav>
+</main>
