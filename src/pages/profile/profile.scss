@@ -62,6 +62,13 @@
             font-family: Arial, Helvetica, sans-serif;
             letter-spacing: 0.2em;
         }
+
+        .line-input-allert {
+            position: absolute;
+            padding-top: 15px;
+            color: var(--red-alert-color);
+            font-size: 9px;
+        }
     }
 
     .profile__element:last-child {
@@ -70,6 +77,10 @@
 
     .profile__footer {
         margin-top: 55px;
+
+        .profile__element {
+            border-bottom: none;
+        }
 
         .profile__element_centered {
             display: flex;
@@ -94,4 +105,7 @@
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
+    width: 28px;
+    height: 28px;
+    background-image: url('./images/back_icon.svg');
 }

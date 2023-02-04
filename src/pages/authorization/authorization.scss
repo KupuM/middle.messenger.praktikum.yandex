@@ -16,3 +16,58 @@
         display: flex;
     }
 }
+
+.login-form {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .login-form__heading {
+        text-align: center;
+        color: var(--black-color);
+        padding-bottom: 40px;
+        font-family: var(--font-noto-sans-display-medium);
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .login-form__element {
+        margin-bottom: 32px;
+
+        .line-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--light-green-color);
+            width: 100%;
+            outline: none;
+            font-family: var(--font-noto-sans-display-medium);
+            font-size: 13px;
+            line-height: 24px;
+            padding: 0;
+        }
+
+        .line-input::placeholder {
+            color: var(--gray-color);
+            padding-left: 0px;
+        }
+        
+        .line-input[type=password]:not(:placeholder-shown) {
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: 0.2em;
+        }
+        
+        .line-input-allert {
+            padding-top: 5px;
+            color: var(--red-alert-color);
+            font-size: 9px;
+        }
+    }
+
+    .login-form__footer {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        row-gap: 8px
+    }
+}

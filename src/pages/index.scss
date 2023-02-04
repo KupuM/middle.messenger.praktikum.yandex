@@ -6,6 +6,7 @@
     --semi-light-gray-color: #EAEAEA;
     --light-gray-color: #EFEFEF;
     --white-color: #FFFFFF;
+    --light-blue-color: #E4EDFD;
     --light-green-color: #26BD1B;
     --red-alert-color: #F25A47;
     --font-noto-sans: 'Noto Sans', sans-serif;
@@ -29,9 +30,6 @@ html, body {
     cursor: pointer;
     font-family: var(--font-noto-sans-display-medium);
     font-size: 13px;
-}
-
-.button_primary {
     background-color: var(--light-green-color);
     color: var(--white-color);
 }
