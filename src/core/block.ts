@@ -205,10 +205,6 @@ export default abstract class Block<P extends object = {}> {
         fragment.innerHTML = template({ ...this.state, ...this.props, children: this.children, refs: this.refs });
 
         Object.entries(this.children).forEach(([id, child]) => {
-            console.log(`Block _compile Object.entries(this.children): 266`);
-            console.log(`Block _compile Object.entries id=`, id);
-            console.log(`Block _compile Object.entries child=`, child);
-
             const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 
             if (!stub) {

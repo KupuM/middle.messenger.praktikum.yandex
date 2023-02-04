@@ -1,19 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Display&family=Noto+Sans:wght@500;600&display=swap');
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+Display&family=Noto+Sans:wght@500;600&display=swap";
 
 :root {
     --black-color: #313131;
-    --gray-color: #8B8B8B;
-    --semi-light-gray-color: #EAEAEA;
-    --light-gray-color: #EFEFEF;
-    --white-color: #FFFFFF;
-    --light-blue-color: #E4EDFD;
-    --light-green-color: #26BD1B;
-    --red-alert-color: #F25A47;
-    --font-noto-sans: 'Noto Sans', sans-serif;
-    --font-noto-sans-display-medium: 'Noto Sans Display', sans-serif;
+    --gray-color: #8b8b8b;
+    --semi-light-gray-color: #eaeaea;
+    --light-gray-color: #efefef;
+    --white-color: #fff;
+    --light-blue-color: #e4edfd;
+    --light-green-color: #26bd1b;
+    --red-alert-color: #f25a47;
+    --font-noto-sans: "Noto Sans", sans-serif;
+    --font-noto-sans-display-medium: "Noto Sans Display", sans-serif;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: var(--font-noto-sans);

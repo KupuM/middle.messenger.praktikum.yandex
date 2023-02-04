@@ -9,10 +9,10 @@
         "build": "parcel build ./src/pages/*.hbs",
         "serve": "node ./server.js",
         "start": "npm run build && npm run serve",
-        "lint": "eslint \"src/**/*.{ts,tsx}\" --no-error-on-unmatched-pattern",
-        "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix --no-error-on-unmatched-pattern",
-        "stylelint": "stylelint \"src/**/*.{css,.scss}\"",
-        "stylelint:fix": "stylelint \"src/**/*.{css,.scss}\" --fix"
+        "lint": "eslint \"**/*.{ts,tsx}\" --no-error-on-unmatched-pattern",
+        "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix --no-error-on-unmatched-pattern",
+        "stylelint": "stylelint \"**/*.scss\"",
+        "stylelint:fix": "stylelint \"**/*.scss\" --fix"
     },
     "alias": {
         "core": "./src/core",
@@ -36,8 +36,8 @@
         "@typescript-eslint/eslint-plugin": "5.50.0",
         "@typescript-eslint/parser": "5.50.0",
         "eslint": "8.32.0",
-        "eslint-config-standard-with-typescript": "34.0.0",
         "eslint-config-prettier": "8.6.0",
+        "eslint-config-standard-with-typescript": "34.0.0",
         "eslint-plugin-import": "2.27.5",
         "eslint-plugin-jsx-a11y": "6.7.1",
         "eslint-plugin-n": "15.6.1",
@@ -46,8 +46,7 @@
         "parcel": "2.8.2",
         "prettier": "2.8.3",
         "stylelint": "14.16.1",
-        "stylelint-config-standard": "29.0.0",
-        "stylelint-scss": "4.3.0",
+        "stylelint-config-standard-scss": "6.1.0",
         "typescript": "4.9.4"
     },
     "dependencies": {

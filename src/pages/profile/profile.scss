@@ -9,15 +9,15 @@
         .profile__image {
             width: 130px;
             height: 130px;
-            background-image: url('./images/no_avatar.svg');
+            background-image: url("./images/no_avatar.svg");
             margin: 0 auto;
         }
-        
+
         .profile__image_change:hover {
-            background-image: url('./images/change_avatar.svg');
+            background-image: url("./images/change_avatar.svg");
             cursor: pointer;
         }
-        
+
         .profile__heading {
             font-family: var(--font-noto-sans-display-medium);
             font-size: 20px;
@@ -40,7 +40,7 @@
             display: inline-block;
             align-self: flex-start;
         }
-        
+
         .profile-element-input {
             display: inline-block;
             align-self: flex-start;
@@ -55,10 +55,10 @@
 
         .profile-element-input::placeholder {
             color: var(--gray-color);
-            padding-left: 0px;
+            padding-left: 0;
         }
-        
-        .profile-element-input[type=password] {
+
+        .profile-element-input[type="password"] {
             font-family: Arial, Helvetica, sans-serif;
             letter-spacing: 0.2em;
         }
@@ -107,5 +107,5 @@
     transform: translateY(-50%) translateX(-50%);
     width: 28px;
     height: 28px;
-    background-image: url('./images/back_icon.svg');
+    background-image: url("./images/back_icon.svg");
 }
