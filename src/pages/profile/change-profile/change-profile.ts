@@ -12,7 +12,7 @@ const profileData = {
     phone: '+79001234567',
 }
 
-export default class ChangeProfile extends Block<IBlockProps> {
+export class ChangeProfile extends Block<IBlockProps> {
     static componentName = 'ChangeProfile';
 
     constructor () {
@@ -80,13 +80,13 @@ export default class ChangeProfile extends Block<IBlockProps> {
                                 {{{Button text="Сохранить" class="button" onClick=onClick}}}
                             </div>
                             <div class="profile__element profile__element_centered">
-                                {{{Link href="../profile/profile.html" title="Отмена" color-class="link_green"}}}
+                                {{{Link href="profile" title="Отмена" color-class="link_green"}}}
                             </div>
                         </section>
                     </form>
                 </main>
                 <div class="back-button">
-                    <a class="back-button__link" href="../../chat/chat.html"></a>
+                    <a class="back-button__link" href="chat"></a>
                 </div>
             </div>
         `

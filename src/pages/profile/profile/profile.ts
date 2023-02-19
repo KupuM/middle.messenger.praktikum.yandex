@@ -11,7 +11,7 @@ const profileData = {
     phone: '+79001234567',
 }
 
-export default class Profile extends Block<IBlockProps> {
+export class Profile extends Block<IBlockProps> {
     static componentName = 'Profile';
 
     protected render(): string {
@@ -69,12 +69,12 @@ export default class Profile extends Block<IBlockProps> {
                     <section class="profile__footer">
                         <div class="profile__element">
                             <div class="profile-element-title">
-                                {{{Link href="../change-profile/change-profile.html" title="Изменить данные" color-class="link_green"}}}
+                                {{{Link href="change-profile" title="Изменить данные" color-class="link_green"}}}
                             </div>
                         </div>
                         <div class="profile__element">
                             <div class="profile-element-title">
-                                {{{Link href="../change-password/change-password.html" title="Изменить пароль" color-class="link_green"}}}
+                                {{{Link href="change-password" title="Изменить пароль" color-class="link_green"}}}
                             </div>
                         </div>
                         <div class="profile__element">
@@ -85,7 +85,7 @@ export default class Profile extends Block<IBlockProps> {
                     </section>
                 </main>
                 <div class="back-button">
-                    <a class="back-button__link" href="../../chat/chat.html"></a>
+                    <a class="back-button__link" href="chat"></a>
                 </div>
             </div>
         `

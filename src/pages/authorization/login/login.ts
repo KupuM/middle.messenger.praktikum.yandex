@@ -3,7 +3,7 @@ import { IBlockProps } from "core/models";
 import { formSubmitHandler } from "core/utils";
 import "../authorization.scss";
 
-export default class Login extends Block<IBlockProps> {
+export class Login extends Block<IBlockProps> {
     static componentName = 'Login';
 
     constructor() {
@@ -26,7 +26,7 @@ export default class Login extends Block<IBlockProps> {
                             </div>
                             <div class="login-form__footer">
                                 {{{Button text="Войти" class="button" onClick=onClick}}}
-                                {{{Link href="../register/register.html" title="Нет аккаунта?" color-class="link_green"}}}
+                                {{{Link href="register" title="Нет аккаунта?" color-class="link_green"}}}
                             </div>
                         </form>
                     </section>

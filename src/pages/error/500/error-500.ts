@@ -13,7 +13,7 @@ export class Error500 extends Block<IBlockProps> {
                 <p class="error-page__paragraph">Что-то пошло не так.</p>
                 </section>
                 <section class="error-page__footer">
-                {{{ Link href="../../chat/chat.html" title="Назад к чатам" color-class="link_green" }}}
+                {{{ Link href="chat" title="Назад к чатам" color-class="link_green" }}}
                 </section>
             </main>
         `

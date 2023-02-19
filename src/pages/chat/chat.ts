@@ -3,7 +3,7 @@ import { IBlockProps } from "core/models";
 import { formSubmitHandler } from "core/utils";
 import "./chat.scss";
 
-export default class Chat extends Block<IBlockProps> {
+export class Chat extends Block<IBlockProps> {
     static componentName = 'Chat';
 
     constructor() {
@@ -20,7 +20,7 @@ export default class Chat extends Block<IBlockProps> {
                 <div class='chat-list-panel'>
                     <div class='chat-list-panel__header'>
                         <nav class='chat-list-panel-nav'>
-                            <a class='chat-list-panel-nav__link link' href='../profile/profile/profile.html'>Профиль</a>
+                            <a class='chat-list-panel-nav__link link' href='profile'>Профиль</a>
                         </nav>
                         <div class='chat-list-panel-search'>
                             <input class='chat-list-panel-search__search-input' type='search' placeholder='Поиск' />
