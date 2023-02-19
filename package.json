@@ -5,10 +5,19 @@
     "engine": ">=12",
     "source": "index.hbs",
     "scripts": {
-        "dev": "parcel ./src/pages/*.hbs --no-cache --open",
+        "dev": "parcel ./src/pages/*.hbs  --port 3000 --no-cache --open",
         "build": "parcel build ./src/pages/*.hbs",
         "serve": "node ./server.js",
-        "start": "npm run build && npm run serve"
+        "start": "npm run build && npm run serve",
+        "lint": "eslint \"**/*.{ts,tsx}\" --no-error-on-unmatched-pattern",
+        "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix --no-error-on-unmatched-pattern",
+        "stylelint": "stylelint \"**/*.scss\"",
+        "stylelint:fix": "stylelint \"**/*.scss\" --fix"
+    },
+    "alias": {
+        "core": "./src/core",
+        "components": "./src/components",
+        "pages": "./src/pages"
     },
     "repository": {
         "type": "git",
@@ -24,11 +33,26 @@
         "@anikin/parcel-transformer-handlebars": "1.0.9",
         "@parcel/plugin": "2.8.2",
         "@parcel/transformer-sass": "2.8.2",
+        "@typescript-eslint/eslint-plugin": "5.50.0",
+        "@typescript-eslint/parser": "5.50.0",
+        "eslint": "8.32.0",
+        "eslint-config-prettier": "8.6.0",
+        "eslint-config-standard-with-typescript": "34.0.0",
+        "eslint-plugin-import": "2.27.5",
+        "eslint-plugin-jsx-a11y": "6.7.1",
+        "eslint-plugin-n": "15.6.1",
+        "eslint-plugin-prettier": "4.2.1",
+        "eslint-plugin-promise": "6.1.1",
         "parcel": "2.8.2",
-        "parcel-transformer-hbs": "1.0.4"
+        "prettier": "2.8.3",
+        "stylelint": "14.16.1",
+        "stylelint-config-standard-scss": "6.1.0",
+        "typescript": "4.9.4"
     },
     "dependencies": {
         "express": "4.18.2",
-        "handlebars": "4.7.7"
+        "handlebars": "4.7.7",
+        "handlebars-helpers": "0.10.0",
+        "nanoid": "4.0.0"
     }
 }
