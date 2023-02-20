@@ -13,7 +13,7 @@ export class Error404 extends Block<IBlockProps> {
                     <p class="error-page__paragraph">Страница не найдена.</p>
                 </section>
                 <section class="error-page__footer">
-                {{{Link href="chat" title="Назад к чатам" color-class="link_green"}}}
+                    {{{Link href="../messenger" title="Назад к чатам" color-class="link_green"}}}
                 </section>
             </main>
         `

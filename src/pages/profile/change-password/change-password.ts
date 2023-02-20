@@ -50,13 +50,13 @@ export class ChangePassword extends Block<IBlockProps> {
                                 {{{Button text="Сохранить" class="button" onClick=onClick}}}
                             </div>
                             <div class="profile__element profile__element_centered">
-                                {{{Link href="profile" title="Отмена" color-class="link_green"}}}
+                                {{{Link href="settings" title="Отмена" color-class="link_green"}}}
                             </div>
                         </section>
                     </form>
                 </main>
                 <div class="back-button">
-                    <a class="back-button__link" href="chat"></a>
+                    <a class="back-button__link" href="messenger"></a>
                 </div>
             </div>
         `

@@ -26,7 +26,7 @@ export class Login extends Block<IBlockProps> {
                             </div>
                             <div class="login-form__footer">
                                 {{{Button text="Войти" class="button" onClick=onClick}}}
-                                {{{Link href="register" title="Нет аккаунта?" color-class="link_green"}}}
+                                {{{Link href="sing-up" title="Нет аккаунта?" color-class="link_green"}}}
                             </div>
                         </form>
                     </section>

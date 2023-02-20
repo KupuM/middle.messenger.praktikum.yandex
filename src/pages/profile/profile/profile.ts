@@ -85,7 +85,7 @@ export class Profile extends Block<IBlockProps> {
                     </section>
                 </main>
                 <div class="back-button">
-                    <a class="back-button__link" href="chat"></a>
+                    <a class="back-button__link" href="messenger"></a>
                 </div>
             </div>
         `
