@@ -8,9 +8,8 @@ type THTTPMethod = (url: string, options: IRequestOptions) => Promise<XMLHttpReq
 const urlWithParams = (url: string, data?: Record<string, string>): string => {
     return !!data ? url + queryStringify(data) : url;
 }
-//TODO класс сделан для Sprint_2, будет использоваться в следующих спринтах.
-//@ts-ignore
-class HTTPTransport {
+
+export default class HTTPTransport {
     get: THTTPMethod = (url, options) => {
         return this.request(urlWithParams(url, options.data), { ...options, method: EMethod.GET });
     };
@@ -32,8 +31,9 @@ class HTTPTransport {
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
+            const processedUrl = method === EMethod.GET ? urlWithParams(url, data) : url;
 
-            xhr.open(method, urlWithParams(url, data));
+            xhr.open(method!, processedUrl);
 
             Object.keys(headers).forEach((key) => {
                 xhr.setRequestHeader(key, headers[key]);
@@ -51,6 +51,7 @@ class HTTPTransport {
             if (method === EMethod.GET || !data) {
                 xhr.send();
             } else {
+                xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify(data));
             }
         });

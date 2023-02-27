@@ -1,18 +1,32 @@
 import Block from "core/block";
+import { authorizationController } from "core/controllers";
 import { IBlockProps } from "core/models";
+import store, { StoreEvents } from "core/store";
 import "../profile.scss";
 
-const profileData = {
-    email: 'pochta@yandex.ru',
-    login: 'ivanivanov',
-    first_name: 'Иван',
-    second_name: 'Иванов',
-    display_name: 'Иван',
-    phone: '+79001234567',
-}
+// const profileData = {
+//     email: 'pochta@yandex.ru',
+//     login: 'ivanivanov',
+//     first_name: 'Иван',
+//     second_name: 'Иванов',
+//     display_name: 'Иван',
+//     phone: '+79001234567',
+// }
 
 export class Profile extends Block<IBlockProps> {
     static componentName = 'Profile';
+
+    constructor() {
+		super();
+console.log(`Profile constructor()`);
+        // запрашиваем данные у контроллера
+        authorizationController.getUserInfo();
+
+        store.on(StoreEvents.Updated, () => {
+            // вызываем обновление компонента, передав данные из хранилища
+            this.setProps(store.getState());
+        });
+	}
 
     protected render(): string {
         return `
@@ -27,42 +41,42 @@ export class Profile extends Block<IBlockProps> {
                             name="email"
                             title="Почта"
                             type="email"
-                            placeholder="${profileData.email}"
+                            placeholder="${this.props.email}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="login"
                             title="Логин"
                             type="text"
-                            placeholder="${profileData.login}"
+                            placeholder="${this.props.login}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="first_name"
                             title="Имя"
                             type="text"
-                            placeholder="${profileData.first_name}"
+                            placeholder="${this.props.first_name}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="second_name"
                             title="Фамилия"
                             type="text"
-                            placeholder="${profileData.second_name}"
+                            placeholder="${this.props.second_name}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="display_name"
                             title="Имя в чате"
                             type="text"
-                            placeholder="${profileData.display_name}"
+                            placeholder="${this.props.display_name}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="phone"
                             title="Телефон"
                             type="tel"
-                            placeholder="${profileData.phone}"
+                            placeholder="${this.props.phone}"
                             disabled=true
                         }}}
                     </section>

@@ -1,10 +1,14 @@
 import { EMethod } from "./enums";
 
 export interface IRequestOptions {
-    method: EMethod;
-    data?: { [key: string]: string };
+    method?: EMethod;
+    data?: IRequestOptionsData;
     headers?: { [key: string]: string };
     timeout?: number;
+}
+
+export interface IRequestOptionsData {
+    [key: string]: string
 }
 
 export interface IBlockProps {
