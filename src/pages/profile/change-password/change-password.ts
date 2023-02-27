@@ -1,17 +1,19 @@
-import Block from "core/block";
-import { IBlockProps } from "core/models";
-import { formSubmitHandler } from "core/utils";
-import "../profile.scss";
+import Block from 'core/block';
+import { type IBlockProps } from 'core/models';
+import { formSubmitHandler } from 'core/utils';
+import '../profile.scss';
 
 export class ChangePassword extends Block<IBlockProps> {
     static componentName = 'ChangePassword';
 
-    constructor () {
+    constructor() {
         super();
 
         this.setProps({
-			onClick: (event: SubmitEvent) => formSubmitHandler(event, this),
-		});
+            onClick: (event: SubmitEvent) => {
+                formSubmitHandler(event, this);
+            },
+        });
     }
 
     protected render(): string {
@@ -59,6 +61,6 @@ export class ChangePassword extends Block<IBlockProps> {
                     <a class="back-button__link" href="messenger"></a>
                 </div>
             </div>
-        `
+        `;
     }
 }

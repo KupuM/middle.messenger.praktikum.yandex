@@ -1,1 +1,1 @@
-export {Error500 as default} from './error-500';
+export { Error500 as default } from './error-500';

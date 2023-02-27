@@ -1,11 +1,11 @@
-import EventBus from "./event-bus";
-import { setObject } from "./utils";
+import EventBus from './event-bus';
+import { setObject } from './utils';
 
 export enum StoreEvents {
     Updated = 'updated',
 }
 
-interface IState {
+export interface IState {
     user?: {
         id?: number;
         first_name?: string;
@@ -16,22 +16,22 @@ interface IState {
         password?: string;
         phone?: string;
         avatar?: string;
-    }
+    };
 }
 
 class Store<State extends Record<string, any>> extends EventBus {
-    private state = {} as State;
+    private readonly state = {} as State;
 
     public setState(path: string, value: unknown): void {
         setObject(this.state, path, value);
 
-        this.emit(StoreEvents.Updated, {state: this.state, path, value});
-    };
+        this.emit(StoreEvents.Updated, { state: this.state, path, value });
+    }
 
-    public getState(): State{
+    public getState(): State {
         console.log(`Store.ts getState this.state =`, this.state);
         return this.state;
     }
 }
 
-export default new Store(); 
+export default new Store();

@@ -1,7 +1,7 @@
-import Block from "core/block";
-import { IBlockProps } from "core/models";
-import { formSubmitHandler } from "core/utils";
-import "../profile.scss";
+import Block from 'core/block';
+import { type IBlockProps } from 'core/models';
+import { formSubmitHandler } from 'core/utils';
+import '../profile.scss';
 
 const profileData = {
     email: 'pochta@yandex.ru',
@@ -10,18 +10,20 @@ const profileData = {
     second_name: 'Иванов',
     display_name: 'Иван',
     phone: '+79001234567',
-}
+};
 
 export class ChangeProfile extends Block<IBlockProps> {
     static componentName = 'ChangeProfile';
 
-    constructor () {
-        super()
+    constructor() {
+        super();
 
         this.setProps({
-			onClick: (event: SubmitEvent) => formSubmitHandler(event, this),
-		});
-      }
+            onClick: (event: SubmitEvent) => {
+                formSubmitHandler(event, this);
+            },
+        });
+    }
 
     protected render(): string {
         return `
@@ -89,6 +91,6 @@ export class ChangeProfile extends Block<IBlockProps> {
                     <a class="back-button__link" href="messenger"></a>
                 </div>
             </div>
-        `
+        `;
     }
 }

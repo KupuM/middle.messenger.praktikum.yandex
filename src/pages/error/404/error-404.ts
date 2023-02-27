@@ -1,5 +1,5 @@
 import Block from 'core/block';
-import { IBlockProps } from 'core/models';
+import { type IBlockProps } from 'core/models';
 import '../error.scss';
 
 export class Error404 extends Block<IBlockProps> {
@@ -16,6 +16,6 @@ export class Error404 extends Block<IBlockProps> {
                     {{{Link href="../messenger" title="Назад к чатам" color-class="link_green"}}}
                 </section>
             </main>
-        `
+        `;
     }
-} 
+}

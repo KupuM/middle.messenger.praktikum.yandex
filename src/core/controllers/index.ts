@@ -1,1 +1,1 @@
-export {authorizationController} from './authorization-controller';
+export { authorizationController } from './authorization-controller';

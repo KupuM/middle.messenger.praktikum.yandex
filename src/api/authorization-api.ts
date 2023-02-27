@@ -1,8 +1,8 @@
-import { IRequestOptionsData } from 'core/models';
+import { type IRequestOptionsData } from 'core/models';
 import HTTPTransport from 'core/services/http-transport';
 
 const authorizationApiInstance = new HTTPTransport();
-const authorizationApiUrlPath= 'https://ya-praktikum.tech/api/v2/auth';
+const authorizationApiUrlPath = 'https://ya-praktikum.tech/api/v2/auth';
 
 export interface ISignUp extends IRequestOptionsData {
     first_name: string;
@@ -18,23 +18,22 @@ export interface ISignIn extends IRequestOptionsData {
     password: string;
 }
 
-
 class AuthorizationAPI {
-    signUp(data: ISignUp) {
-        return authorizationApiInstance.post(`${authorizationApiUrlPath}/signup`, { data });
+    async signUp(data: ISignUp): Promise<XMLHttpRequest> {
+        return await authorizationApiInstance.post(`${authorizationApiUrlPath}/signup`, { data });
     }
 
-    signIn(data: ISignIn) {
-        return authorizationApiInstance.post(`${authorizationApiUrlPath}/signin`, { data });
+    async signIn(data: ISignIn): Promise<XMLHttpRequest> {
+        return await authorizationApiInstance.post(`${authorizationApiUrlPath}/signin`, { data });
     }
 
-    getUserInfo() {
-        return authorizationApiInstance.get(`${authorizationApiUrlPath}/user`, {});
+    async getUserInfo(): Promise<XMLHttpRequest> {
+        return await authorizationApiInstance.get(`${authorizationApiUrlPath}/user`, {});
     }
 
-    logout() {
-        return authorizationApiInstance.post(`${authorizationApiUrlPath}/logout`, {});
+    async logout(): Promise<XMLHttpRequest> {
+        return await authorizationApiInstance.post(`${authorizationApiUrlPath}/logout`, {});
     }
 }
 
-export const authorizationAPI = new AuthorizationAPI;
+export const authorizationAPI = new AuthorizationAPI();

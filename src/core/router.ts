@@ -1,19 +1,19 @@
-import Block from "./block";
-import { ERoutes } from "./enums";
-import Route from "./route";
+import type Block from './block';
+import { type ERoutes } from './enums';
+import Route from './route';
 
 export default class Router {
-    private static __instance: Router;
-    private routes: Route[] = [];
-    private history = window.history;
+    private static __instance: Nullable<Router> = null;
+    private readonly routes: Route[] = [];
+    private readonly history = window.history;
     private _currentRoute: Nullable<Route> = null;
-    private _rootQuery: string;
+    private readonly _rootQuery: string;
 
     constructor(rootQuery: string) {
-        if (Router.__instance) {
+        if (Router.__instance !== null) {
             return Router.__instance;
         }
-        
+
         this._rootQuery = rootQuery;
         Router.__instance = this;
     }
@@ -27,7 +27,7 @@ export default class Router {
 
     start() {
         window.onpopstate = (event: PopStateEvent) => {
-            const target = event.target as Window
+            const target = event.target as Window;
             this._onRoute(target.location.pathname);
         };
 
@@ -37,9 +37,9 @@ export default class Router {
     _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
 
-        if (!route) return;
+        if (route === undefined) return;
 
-        if (this._currentRoute) {
+        if (this._currentRoute !== null) {
             this._currentRoute.leave();
         }
 
@@ -61,7 +61,7 @@ export default class Router {
     }
 
     getRoute(pathname: string) {
-        const route = this.routes?.find((route) => route.match(pathname));
-        return route || this.routes.find((route) => route.match('*'));
+        const route = this.routes?.find(route => route.match(pathname));
+        return route !== null ? route : this.routes.find(route => route.match('*'));
     }
 }

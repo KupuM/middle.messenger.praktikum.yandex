@@ -1,6 +1,7 @@
 export default class Validator {
     checkLogin(value: string): boolean {
-        const check = /[A-Za-z0-9]{3,20}/i.test(value) && /^\S+$/.test(value) && /[a-z-_]/i.test(value) && value.length <= 20;
+        const check =
+            /[A-Za-z0-9]{3,20}/i.test(value) && /^\S+$/.test(value) && /[a-z-_]/i.test(value) && value.length <= 20;
         return check;
     }
 
@@ -21,6 +22,6 @@ export default class Validator {
     }
 
     checkEmptyString(value: string): boolean {
-        return value !== "";
+        return value !== '';
     }
-} 
+}

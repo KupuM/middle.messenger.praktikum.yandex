@@ -1,32 +1,32 @@
-import Block from "core/block";
-import { authorizationController } from "core/controllers";
-import { IBlockProps } from "core/models";
-import store, { StoreEvents } from "core/store";
-import { formSubmitHandler } from "core/utils";
-import "../authorization.scss";
+import Block from 'core/block';
+import { authorizationController } from 'core/controllers';
+import { type IBlockProps } from 'core/models';
+import store, { StoreEvents } from 'core/store';
+import { formSubmitHandler } from 'core/utils';
+import '../authorization.scss';
 
-const regUser = {
-    first_name: 'NameIIdfdfsfsdf',
-    second_name: 'LastNamesdfdsfdsf',
-    login: 'login220220122058',
-    email: 'kssite@ya.ru',
-    password: 'qA123456789',
-    phone: '71234567890',
-}
+// const regUser = {
+//     first_name: 'NameIIdfdfsfsdf',
+//     second_name: 'LastNamesdfdsfdsf',
+//     login: 'login220220122058',
+//     email: 'kssite@ya.ru',
+//     password: 'qA123456789',
+//     phone: '71234567890',
+// };
 
 const loginUser = {
     login: 'login220220122058',
     password: 'qA123456789',
-}
+};
 
 export class Login extends Block<IBlockProps> {
     static componentName = 'Login';
 
     constructor() {
-		super();
+        super();
 
         // запрашиваем данные у контроллера
-        //authorizationController.signUp(data);
+        // authorizationController.signUp(data);
         authorizationController.signIn(loginUser);
 
         store.on(StoreEvents.Updated, () => {
@@ -34,10 +34,12 @@ export class Login extends Block<IBlockProps> {
             this.setProps(store.getState());
         });
 
-		this.setProps({
-			onClick: (event: SubmitEvent) => formSubmitHandler(event, this),
-		});
-	}
+        this.setProps({
+            onClick: (event: SubmitEvent) => {
+                formSubmitHandler(event, this);
+            },
+        });
+    }
 
     protected render(): string {
         return `
@@ -56,6 +58,6 @@ export class Login extends Block<IBlockProps> {
                         </form>
                     </section>
                 </main>
-        `
+        `;
     }
 }

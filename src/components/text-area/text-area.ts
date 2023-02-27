@@ -1,12 +1,11 @@
-import Block from "core/block";
-import { IBlockProps } from "core/models";
+import Block from 'core/block';
+import { type IBlockProps } from 'core/models';
 
 export class TextArea extends Block<IBlockProps> {
     static componentName = 'TextArea';
 
     protected render() {
-        return (
-            `
+        return `
                 <form>
                     <div class="chat-content__footer">
                         <div class="line-input-allert"></div>
@@ -16,7 +15,6 @@ export class TextArea extends Block<IBlockProps> {
                     </div>
                 </form>
             
-            `
-        );
+            `;
     }
 }

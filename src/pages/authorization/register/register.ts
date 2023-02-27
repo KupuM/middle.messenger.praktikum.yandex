@@ -1,18 +1,20 @@
-import Block from "core/block";
-import { IBlockProps } from "core/models";
-import { formSubmitHandler } from "core/utils";
-import "../authorization.scss";
+import Block from 'core/block';
+import { type IBlockProps } from 'core/models';
+import { formSubmitHandler } from 'core/utils';
+import '../authorization.scss';
 
 export class Register extends Block<IBlockProps> {
     static componentName = 'Register';
 
     constructor() {
-		super();
+        super();
 
-		this.setProps({
-			onClick: (event: SubmitEvent) => formSubmitHandler(event, this),
-		});
-	}
+        this.setProps({
+            onClick: (event: SubmitEvent) => {
+                formSubmitHandler(event, this);
+            },
+        });
+    }
 
     protected render(): string {
         return `
@@ -36,6 +38,6 @@ export class Register extends Block<IBlockProps> {
                         </form>
                     </section>
                 </main>
-        `
+        `;
     }
 }

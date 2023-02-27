@@ -1,18 +1,20 @@
-import Block from "core/block";
-import { IBlockProps } from "core/models";
-import { formSubmitHandler } from "core/utils";
-import "./chat.scss";
+import Block from 'core/block';
+import { type IBlockProps } from 'core/models';
+import { formSubmitHandler } from 'core/utils';
+import './chat.scss';
 
 export class Chat extends Block<IBlockProps> {
     static componentName = 'Chat';
 
     constructor() {
-		super();
+        super();
 
-		this.setProps({
-			onClickSubmit: (event: SubmitEvent) => formSubmitHandler(event, this),
-		});
-	}
+        this.setProps({
+            onClickSubmit: (event: SubmitEvent) => {
+                formSubmitHandler(event, this);
+            },
+        });
+    }
 
     protected render(): string {
         return `
@@ -79,6 +81,6 @@ export class Chat extends Block<IBlockProps> {
                     {{{TextArea name="message" onClickSubmit=onClickSubmit ref="message"}}}          
                 </main>
             </div>
-        `
+        `;
     }
 }

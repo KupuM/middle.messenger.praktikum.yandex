@@ -1,23 +1,19 @@
-import { EMethod } from "./enums";
+import { type EMethod } from './enums';
 
 export interface IRequestOptions {
     method?: EMethod;
     data?: IRequestOptionsData;
-    headers?: { [key: string]: string };
+    headers?: Record<string, string>;
     timeout?: number;
 }
 
-export interface IRequestOptionsData {
-    [key: string]: string
-}
+export type IRequestOptionsData = Record<string, string>;
 
-export interface IBlockProps {
-    [prop: string]: any;
-}
+export type IBlockProps = Record<string, any>;
 
 export interface IFormElementProps extends IBlockProps {
-    name?: "login" | "password" | "first_name" | "second_name" | "display_name" | "email" | "phone";
-    type?: "text" | "password" | "phone" | "email" | "file";
+    name?: 'login' | 'password' | 'first_name' | 'second_name' | 'display_name' | 'email' | 'phone';
+    type?: 'text' | 'password' | 'phone' | 'email' | 'file';
     value?: string | HTMLInputElement | HTMLImageElement | File;
     placeholder?: string;
     id?: string;

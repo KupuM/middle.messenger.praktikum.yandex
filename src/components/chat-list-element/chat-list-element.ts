@@ -1,12 +1,11 @@
-import Block from "core/block";
-import { IBlockProps } from "core/models";
+import Block from 'core/block';
+import { type IBlockProps } from 'core/models';
 
 export class ChatListElement extends Block<IBlockProps> {
     static componentName = 'ChatListElement';
 
     protected render() {
-        return (
-            `
+        return `
                 <div class='chat-list__element'>
                     <div class='chat-list__avatar'>
                     </div>
@@ -21,7 +20,6 @@ export class ChatListElement extends Block<IBlockProps> {
                         </div>
                     </div>
                 </div>
-            `
-        );
+            `;
     }
 }

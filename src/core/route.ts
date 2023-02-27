@@ -1,11 +1,11 @@
-import Block from "./block";
-import renderDOM from "./render-dom";
+import type Block from './block';
+import renderDOM from './render-dom';
 
 export default class Route {
     private _pathname: string;
-    private _blockClass: Function & { prototype: Block };
+    private readonly _blockClass: Function & { prototype: Block };
     private _block: Nullable<Block>;
-    private _props: Record<string, any>;
+    private readonly _props: Record<string, any>;
 
     constructor(pathname: string, view: Function & { prototype: Block }, props: Record<string, any>) {
         this._pathname = pathname;
@@ -22,7 +22,7 @@ export default class Route {
     }
 
     leave(): void {
-        if (this._block) {
+        if (this._block != null) {
             this._block = null;
         }
     }
@@ -32,11 +32,10 @@ export default class Route {
     }
 
     render(): void {
-        if (!this._block) {
-            //@ts-ignore
+        if (this._block == null) {
+            // @ts-expect-error
             this._block = new this._blockClass();
             renderDOM(this._props.rootQuery, this._block!);
-            return;
         }
     }
 }

@@ -1,8 +1,8 @@
-import Block from "core/block";
-import { authorizationController } from "core/controllers";
-import { IBlockProps } from "core/models";
-import store, { StoreEvents } from "core/store";
-import "../profile.scss";
+import Block from 'core/block';
+import { authorizationController } from 'core/controllers';
+import { type IFormElementProps } from 'core/models';
+import store, { StoreEvents } from 'core/store';
+import '../profile.scss';
 
 // const profileData = {
 //     email: 'pochta@yandex.ru',
@@ -13,12 +13,12 @@ import "../profile.scss";
 //     phone: '+79001234567',
 // }
 
-export class Profile extends Block<IBlockProps> {
+export class Profile extends Block<IFormElementProps> {
     static componentName = 'Profile';
 
-    constructor() {
-		super();
-console.log(`Profile constructor()`);
+    constructor(props: IFormElementProps) {
+        super(props);
+        console.log(`Profile constructor()`);
         // запрашиваем данные у контроллера
         authorizationController.getUserInfo();
 
@@ -26,7 +26,7 @@ console.log(`Profile constructor()`);
             // вызываем обновление компонента, передав данные из хранилища
             this.setProps(store.getState());
         });
-	}
+    }
 
     protected render(): string {
         return `
@@ -41,42 +41,42 @@ console.log(`Profile constructor()`);
                             name="email"
                             title="Почта"
                             type="email"
-                            placeholder="${this.props.email}"
+                            placeholder=""
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="login"
                             title="Логин"
                             type="text"
-                            placeholder="${this.props.login}"
+                            placeholder=""
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="first_name"
                             title="Имя"
                             type="text"
-                            placeholder="${this.props.first_name}"
+                            placeholder=""
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="second_name"
                             title="Фамилия"
                             type="text"
-                            placeholder="${this.props.second_name}"
+                            placeholder=""
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="display_name"
                             title="Имя в чате"
                             type="text"
-                            placeholder="${this.props.display_name}"
+                            placeholder=""
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="phone"
                             title="Телефон"
                             type="tel"
-                            placeholder="${this.props.phone}"
+                            placeholder=""
                             disabled=true
                         }}}
                     </section>
@@ -102,6 +102,6 @@ console.log(`Profile constructor()`);
                     <a class="back-button__link" href="messenger"></a>
                 </div>
             </div>
-        `
+        `;
     }
 }

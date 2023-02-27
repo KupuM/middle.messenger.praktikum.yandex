@@ -1,4 +1,4 @@
-import Validator from "core/services/validator";
+import Validator from 'core/services/validator';
 
 export const queryStringify = (data: Record<string, string>): string => {
     const keys = Object.keys(data);
@@ -6,7 +6,7 @@ export const queryStringify = (data: Record<string, string>): string => {
     return keys.reduce((result, key, index) => {
         return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
     }, '?');
-}
+};
 
 const getFormElementErrorText = (name: string, value: string): string => {
     const validator = new Validator();
@@ -34,23 +34,27 @@ const getFormElementErrorText = (name: string, value: string): string => {
             break;
         case name === 'phone' && !validator.checkPhone(value):
             errorText = 'Неверный телефон';
-            break; 
+            break;
         case name === 'message' && !validator.checkEmptyString(value):
             errorText = 'Пустое сообщение';
-            break; 
+            break;
     }
 
     return errorText;
-}
+};
 
-type TFormElementDetails = { name: string, value: string, allertElement: HTMLElement };
+interface TFormElementDetails {
+    name: string;
+    value: string;
+    allertElement: HTMLElement;
+}
 
 const getFormElementDetails = (formElement: HTMLElement): TFormElementDetails => {
     const { name, value } = formElement.querySelector('.form-input') as HTMLInputElement;
     const allertElement = formElement.querySelector('.line-input-allert') as HTMLElement;
-    
+
     return { name, value, allertElement };
-}
+};
 
 const addAllertElement = (formElementDetails: TFormElementDetails): void => {
     const { name, value, allertElement } = formElementDetails;
@@ -61,7 +65,7 @@ const addAllertElement = (formElementDetails: TFormElementDetails): void => {
         allertElement.style.display = 'block';
         allertElement.textContent = getFormElementErrorText(name, value);
     }
-}
+};
 
 export const formSubmitHandler = (event: SubmitEvent, context: Record<string, any>): void => {
     event.preventDefault();
@@ -72,35 +76,33 @@ export const formSubmitHandler = (event: SubmitEvent, context: Record<string, an
         const formElement = ref.getContent();
         const { name, value, allertElement } = getFormElementDetails(formElement);
 
-        addAllertElement({name, value, allertElement});
+        addAllertElement({ name, value, allertElement });
         formData[name] = value;
     });
-    //TODO убрать в следующих спринтах. Используется для Sprint_2.
+    // TODO убрать в следующих спринтах. Используется для Sprint_2.
     console.log(`formData`, formData);
-}
+};
 
 export const elementChecker = (context: Record<string, any>): void => {
     const formElement = context.getContent() as HTMLElement;
 
     addAllertElement(getFormElementDetails(formElement));
-}
+};
 
-export const elementCheckerWithClearValue = (event: SubmitEvent, context: Record<string, any>): void => {
-    event.preventDefault;
-
+export const elementCheckerWithClearValue = (context: Record<string, any>): void => {
     const formElement = context.getContent() as HTMLElement;
     const inputElement = formElement.querySelector('.form-input') as HTMLInputElement;
     inputElement.value = '';
 
     addAllertElement(getFormElementDetails(formElement));
-}
+};
 
 type Indexed<T = any> = {
     [key in string]: T;
 };
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
-    for (let p in rhs) {
+    for (const p in rhs) {
         if (!rhs.hasOwnProperty(p)) {
             continue;
         }
@@ -111,7 +113,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
             } else {
                 lhs[p] = rhs[p];
             }
-        } catch(e) {
+        } catch (e) {
             lhs[p] = rhs[p];
         }
     }
@@ -128,8 +130,11 @@ export function setObject(object: Indexed | unknown, path: string, value: unknow
         throw new Error('path must be string');
     }
 
-    const result = path.split('.').reduceRight<Indexed>((acc, key) => ({
-        [key]: acc,
-    }), value as any);
+    const result = path.split('.').reduceRight<Indexed>(
+        (acc, key) => ({
+            [key]: acc,
+        }),
+        value as any,
+    );
     return merge(object as Indexed, result);
 }
