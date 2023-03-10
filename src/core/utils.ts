@@ -3,7 +3,7 @@ import { EErrorText } from './enums';
 import { type Indexed } from './models';
 
 /* Функция принимает объект и возвращает строку для get-параметров. */
-export const queryStringify = (data: Partial<Record<string, string | number | number[]>> | number): string => {
+export const queryStringify = (data: Partial<Record<string, string | number>> | number): string => {
     if (typeof data !== 'object' && data !== null) {
         return `${data}`;
     }

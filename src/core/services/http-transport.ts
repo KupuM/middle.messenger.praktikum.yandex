@@ -7,6 +7,7 @@ type THTTPMethodGet = (url: string, options: IRequestOptionsGet) => Promise<XMLH
 type THTTPMethod = (url: string, options: IRequestOptions) => Promise<XMLHttpRequest>;
 
 const urlWithParams = (url: string, data?: IRequestOptionsData | number): string => {
+    // @ts-expect-error
     return data != null ? url + queryStringify(data) : url;
 };
 

@@ -11,6 +11,7 @@ export class ChatItem extends Block<IBlockProps> {
     protected render() {
         const { time, messageUserId, userId } = this.props;
         const activeChatUsers = store.getState().activeChatUsers;
+        // eslint-disable-next-line
         const messageUserData = activeChatUsers?.find(({ id }: { id: number }) => id === messageUserId);
         const { display_name: displayName = '', avatar } = messageUserData ?? {} as { display_name: string, avatar: string };
         const date = dateToLocaleString(time);

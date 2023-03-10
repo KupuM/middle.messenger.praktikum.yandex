@@ -2,45 +2,11 @@ import Block from 'core/block';
 import { connect } from 'core/connect';
 import { authorizationController } from 'core/controllers';
 import { ERoutes } from 'core/enums';
-import { Indexed, type IBlockProps } from 'core/models';
+import { type Indexed, type IBlockProps } from 'core/models';
 import Router from 'core/router';
-import store, { StoreEvents } from 'core/store';
-import { formSubmitHandler, getCookie } from 'core/utils';
+import store from 'core/store';
+import { formSubmitHandler } from 'core/utils';
 import '../authorization.scss';
-
-// const regUser = {
-//    first_name: 'NameIIdfdfsfsdf',
-//    second_name: 'LastNamesdfdsfdsf',
-//    login: 'login220220122058',
-//    email: 'kssite@ya.ru',
-//    password: 'qA123456789',
-//    phone: '71234567890',
-// };
-
-// const loginUser = {
-//    login: 'login220220122058',
-//    password: 'qA123456789',
-// };
-
-// const loginUser = {
-//    login: 'login0103221400',
-//    password: 'qA1234567891',
-//    id: 586067
-// };
-
-// const loginUser = {
-//    email: e-16450347@ya.ru,
-//    login: 'login0103221445',
-//    password: 'qA123456781',
-//    id: 586067
-// };
-
-// const loginUser = {
-//    email: e-16450347@narod.ru,
-//    login: 'login0103221450',
-//    password: 'qA12345678',
-//    id: 586067
-// };
 
 const router = new Router('.app');
 

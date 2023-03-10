@@ -2,9 +2,9 @@ import Block from 'core/block';
 import { connect } from 'core/connect';
 import { authorizationController, userController } from 'core/controllers';
 import { ERoutes } from 'core/enums';
-import { Indexed, type IBlockProps } from 'core/models';
+import { type Indexed, type IBlockProps } from 'core/models';
 import Router from 'core/router';
-import store, { StoreEvents } from 'core/store';
+import store from 'core/store';
 import { formSubmitHandler } from 'core/utils';
 import '../profile.scss';
 
@@ -44,7 +44,6 @@ class ChangePassword extends Block<IBlockProps> {
     }
 
     protected render(): string {
-        console.log(`ChangePassword render() this.props = `, this.props);
         if (!this.props.user) {
             return `<div>{{{Spinner}}}</div>`;
         }
