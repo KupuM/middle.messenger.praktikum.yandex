@@ -1,107 +1,139 @@
 import Block from 'core/block';
+import { connect } from 'core/connect';
 import { authorizationController } from 'core/controllers';
-import { type IFormElementProps } from 'core/models';
-import store, { StoreEvents } from 'core/store';
+import { ERoutes } from 'core/enums';
+import { type Indexed, type IFormElementProps } from 'core/models';
+import Router from 'core/router';
+import store from 'core/store';
 import '../profile.scss';
 
-// const profileData = {
-//     email: 'pochta@yandex.ru',
-//     login: 'ivanivanov',
-//     first_name: 'Иван',
-//     second_name: 'Иванов',
-//     display_name: 'Иван',
-//     phone: '+79001234567',
-// }
+const router = new Router('.app');
 
-export class Profile extends Block<IFormElementProps> {
+class Profile extends Block<IFormElementProps> {
     static componentName = 'Profile';
 
-    constructor(props: IFormElementProps) {
-        super(props);
-        console.log(`Profile constructor()`);
-        // запрашиваем данные у контроллера
-        authorizationController.getUserInfo();
+    constructor() {
+        super();
 
-        store.on(StoreEvents.Updated, () => {
-            // вызываем обновление компонента, передав данные из хранилища
-            this.setProps(store.getState());
+        !this.props.user && authorizationController.getUserInfo();
+
+        this.setProps({
+            user: store.getState().user,
+            onClickChangeProfile: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.CHANGE_PROFILE);
+                store.setState('app', { formSuccessText: '' });
+            },
+            onClickChangePassword: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.CHANGE_PASSWORD);
+                store.setState('app', { formSuccessText: '' });
+            },
+            onClickLogout: (event: SubmitEvent) => {
+                event.preventDefault();
+                authorizationController.logout();
+            },
+            onClickLinkBack: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.CHAT);
+            },
         });
     }
 
     protected render(): string {
+        const user = this.props.user;
+
+        if (!user) {
+            return `<div>{{{Spinner}}}</div>`;
+        }
+
+        const { email, login, first_name: firstName, second_name: secondName, display_name: displayName, phone, avatar, id } = this.props.user;
+
         return `
             <div>
                 <main class="profile">
                     <section class="profile__header">
-                        <div class="profile__image"></div>
-                        <h1 class="profile__heading">{{display_name}}</h1>
+                        {{{Avatar avatarPath="${avatar}"}}}
+                        <h1 class="profile__heading">${displayName || firstName}</h1>
+                        <span class="text_gray">ID: ${id}<span>
                     </section>
                     <section class="profile__content">
                         {{{ProfileFormElement
                             name="email"
                             title="Почта"
                             type="email"
-                            placeholder=""
+                            placeholder="${email}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="login"
                             title="Логин"
                             type="text"
-                            placeholder=""
+                            placeholder="${login}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="first_name"
                             title="Имя"
                             type="text"
-                            placeholder=""
+                            placeholder="${firstName}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="second_name"
                             title="Фамилия"
                             type="text"
-                            placeholder=""
+                            placeholder="${secondName}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="display_name"
                             title="Имя в чате"
                             type="text"
-                            placeholder=""
+                            placeholder="${displayName ?? `Nick${id}`}"
                             disabled=true
                         }}}
                         {{{ProfileFormElement
                             name="phone"
                             title="Телефон"
                             type="tel"
-                            placeholder=""
+                            placeholder="${phone}"
                             disabled=true
                         }}}
                     </section>
                     <section class="profile__footer">
                         <div class="profile__element">
                             <div class="profile-element-title">
-                                {{{Link href="change-profile" title="Изменить данные" color-class="link_green"}}}
+                                {{{Link onClick=onClickChangeProfile href="change-profile" title="Изменить данные" className="link_green"}}}
                             </div>
                         </div>
                         <div class="profile__element">
                             <div class="profile-element-title">
-                                {{{Link href="change-password" title="Изменить пароль" color-class="link_green"}}}
+                                {{{Link onClick=onClickChangePassword title="Изменить пароль" className="link_green"}}}
                             </div>
                         </div>
                         <div class="profile__element">
                             <div class="profile-element-title">
-                                {{{Link href="#!" title="Выйти" color-class="link_red-alert"}}}
+                                {{{Link title="Выйти" onClick=onClickLogout className="link_red-alert"}}}
                             </div>
                         </div>
                     </section>
                 </main>
                 <div class="back-button">
-                    <a class="back-button__link" href="messenger"></a>
+                    <!--a class="back-button__link" href="messenger"></a-->
+                    {{{Link onClick=onClickLinkBack className="back-button__link"}}}
                 </div>
             </div>
         `;
     }
 }
+
+const mapStateToProps = (state: Indexed) => {
+    return {
+        user: state.user,
+        formSuccessText: state.formSuccessText,
+        formErrorText: state.formErrorText,
+    };
+}
+
+export default connect(mapStateToProps)(Profile);

@@ -1,36 +1,90 @@
 import Block from 'core/block';
-import { type IBlockProps } from 'core/models';
+import { connect } from 'core/connect';
+import { authorizationController, userController } from 'core/controllers';
+import { ERoutes } from 'core/enums';
+import { type Indexed, type IBlockProps } from 'core/models';
+import Router from 'core/router';
+import store from 'core/store';
 import { formSubmitHandler } from 'core/utils';
 import '../profile.scss';
 
-const profileData = {
-    email: 'pochta@yandex.ru',
-    login: 'ivanivanov',
-    first_name: 'Иван',
-    second_name: 'Иванов',
-    display_name: 'Иван',
-    phone: '+79001234567',
-};
+const router = new Router('.app');
 
-export class ChangeProfile extends Block<IBlockProps> {
+class ChangeProfile extends Block<IBlockProps> {
     static componentName = 'ChangeProfile';
 
     constructor() {
+
         super();
 
+        !this.props.user && authorizationController.getUserInfo();
+
         this.setProps({
-            onClick: (event: SubmitEvent) => {
-                formSubmitHandler(event, this);
+            user: store.getState().user,
+            onClickLinkCancel: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.PROFILE);
+                this.clearFormInfoText();
             },
+            onClickLinkBack: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.CHAT);
+                this.clearFormInfoText();
+            },
+            onClickSave: (event: SubmitEvent) => {
+                formSubmitHandler(event, this, userController.profile);
+            },
+            onClickChangeAvatar: () => {
+                this.onClickChangeAvatar();
+            }
         });
     }
 
+    protected clearFormInfoText(): void {
+        store.setState('app', {
+            formSuccessText: undefined,
+            formErrorText: undefined,
+        });
+    }
+
+    protected onClickChangeAvatar(): void {
+        const modal = document.querySelector(".modal-add-file") as HTMLElement;
+        const overlay = document.querySelector(".overlay-modal") as HTMLElement;
+        const closeButton = document.querySelector(".modal__close-modal-add-file") as HTMLElement;
+        modal.style.display = "flex";
+        overlay.style.display = "block";
+
+        window.onclick = function (event) {
+            if (event.target === overlay) {
+                modal.style.display = "none";
+                overlay.style.display = "none";
+            }
+        }
+
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+            overlay.style.display = "none";
+        }
+    }
+
     protected render(): string {
+        const user = this.props.user;
+
+        if (!user) {
+            return `<div>{{{Spinner}}}</div>`;
+        }
+
+        const { email, login, first_name: firstName, second_name: secondName, display_name: displayName, phone, avatar, id } = user || {};
+        const errorText: string = store.getState().formErrorText ?? '';
+        const successText: string = store.getState().formSuccessText ?? '';
+
         return `
             <div>
                 <main class="profile">
                     <section class="profile__header">
-                        <div class="profile__image profile__image_change"></div>
+                        {{{Avatar onClick=onClickChangeAvatar className="profile__image_change" avatarPath="${avatar}"}}}
+                        <h1 class="profile__heading">${displayName || firstName}</h1>
+                        <span class="text_gray">ID: ${id}<span>
                     </section>
                     <form>
                         <section class="profile__content">
@@ -38,59 +92,72 @@ export class ChangeProfile extends Block<IBlockProps> {
                                 name="email"
                                 title="Почта"
                                 type="email"
-                                value="${profileData.email}"
+                                value="${email}"
                                 ref="email"
                             }}}
                             {{{ProfileFormElement
                                 name="login"
                                 title="Логин"
                                 type="text"
-                                value="${profileData.login}"
+                                value="${login}"
                                 ref="login"
                             }}}
                             {{{ProfileFormElement
                                 name="first_name"
                                 title="Имя"
                                 type="text"
-                                value="${profileData.first_name}"
+                                value="${firstName}"
                                 ref="first_name"
                             }}}
                             {{{ProfileFormElement
                                 name="second_name"
                                 title="Фамилия"
                                 type="text"
-                                value="${profileData.second_name}"
+                                value="${secondName}"
                                 ref="second_name"
                             }}}
                             {{{ProfileFormElement
                                 name="display_name"
                                 title="Имя в чате"
                                 type="text"
-                                value="${profileData.display_name}"
+                                placeholder="${displayName ?? `Nick${id}`}"
                                 ref="display_name"
                             }}}
                             {{{ProfileFormElement
                                 name="phone"
                                 title="Телефон"
                                 type="tel"
-                                value="${profileData.phone}"
+                                value="${phone}"
                                 ref="phone"
                             }}}
                         </section>
+                        <div class="link_red-alert text-center">${errorText}</div>
+                        <div class="link_green text-center">${successText}</div>
                         <section class="profile__footer">
                             <div class="profile__element profile__element_centered">
-                                {{{Button text="Сохранить" class="button" onClick=onClick}}}
+                                {{{Button text="Сохранить" class="button" onClick=onClickSave}}}
                             </div>
                             <div class="profile__element profile__element_centered">
-                                {{{Link href="settings" title="Отмена" color-class="link_green"}}}
+                                {{{Link onClick=onClickLinkCancel title="Отмена" className="link_green"}}}
                             </div>
                         </section>
                     </form>
                 </main>
                 <div class="back-button">
-                    <a class="back-button__link" href="messenger"></a>
+                    {{{Link onClick=onClickLinkBack className="back-button__link"}}}
                 </div>
+                <div>{{{ModalAddFile}}}</div>
             </div>
         `;
     }
 }
+
+const mapStateToProps = (state: Indexed) => {
+    return {
+        user: state.user,
+        formSuccessText: state.formSuccessText,
+        formErrorText: state.formErrorText,
+    };
+}
+
+export default connect(mapStateToProps)(ChangeProfile);

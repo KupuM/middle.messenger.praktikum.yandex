@@ -1,17 +1,18 @@
 import { queryStringify } from 'core/utils';
 import { NUMBER } from '../constants';
 import { EMethod } from '../enums';
-import { type IRequestOptions } from '../models';
+import { type IRequestOptionsData, type IRequestOptions, type IRequestOptionsGet } from '../models';
 
+type THTTPMethodGet = (url: string, options: IRequestOptionsGet) => Promise<XMLHttpRequest>;
 type THTTPMethod = (url: string, options: IRequestOptions) => Promise<XMLHttpRequest>;
 
-const urlWithParams = (url: string, data?: Record<string, string>): string => {
+const urlWithParams = (url: string, data?: IRequestOptionsData | number): string => {
     return data != null ? url + queryStringify(data) : url;
 };
 
 export default class HTTPTransport {
-    get: THTTPMethod = async (url, options) => {
-        return await this.request(urlWithParams(url, options.data), { ...options, method: EMethod.GET });
+    get: THTTPMethodGet = async (url, options) => {
+        return await this.request(url, { ...options, method: EMethod.GET });
     };
 
     put: THTTPMethod = async (url, options) => {
@@ -31,9 +32,11 @@ export default class HTTPTransport {
 
         return await new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
+            // @ts-expect-error
             const processedUrl = method === EMethod.GET ? urlWithParams(url, data) : url;
 
-            xhr.open(method!, processedUrl);
+            xhr.open(method as string, processedUrl);
+            xhr.withCredentials = true;
 
             Object.keys(headers).forEach(key => {
                 xhr.setRequestHeader(key, headers[key]);
@@ -50,6 +53,8 @@ export default class HTTPTransport {
 
             if (method === EMethod.GET || data == null) {
                 xhr.send();
+            } else if (data instanceof FormData) {
+                xhr.send(data);
             } else {
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify(data));

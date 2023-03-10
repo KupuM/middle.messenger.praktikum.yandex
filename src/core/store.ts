@@ -6,31 +6,42 @@ export enum StoreEvents {
 }
 
 export interface IState {
-    user?: {
-        id?: number;
-        first_name?: string;
-        second_name?: string;
-        display_name?: string;
-        login?: string;
-        email?: string;
-        password?: string;
-        phone?: string;
-        avatar?: string;
-    };
+    app: {
+        user?: {
+            id?: number;
+            first_name?: string;
+            second_name?: string;
+            display_name?: string;
+            login?: string;
+            email?: string;
+            password?: string;
+            phone?: string;
+            avatar?: string;
+        };
+        formErrorText?: string;
+        formSuccessText?: string;
+        chats?: [];
+        activeChat?: number;
+        messages?: [];
+        activeChatUsers?: [];
+    }
 }
 
-class Store<State extends Record<string, any>> extends EventBus {
-    private readonly state = {} as State;
+class Store extends EventBus {
+    private readonly state: IState;
 
-    public setState(path: string, value: unknown): void {
-        setObject(this.state, path, value);
-
-        this.emit(StoreEvents.Updated, { state: this.state, path, value });
+    constructor() {
+        super();
+        this.state = { app: {} }
     }
 
-    public getState(): State {
-        console.log(`Store.ts getState this.state =`, this.state);
-        return this.state;
+    public setState(path: string, value: unknown): void {
+        const newState = setObject(this.state, path, value);
+        this.emit(StoreEvents.Updated, { ...this.state, ...newState });
+    }
+
+    public getState(): IState["app"] {
+        return this.state.app;
     }
 }
 

@@ -1,13 +1,20 @@
 import { type EMethod } from './enums';
 
-export interface IRequestOptions {
+export interface IRequestOptionsGet {
     method?: EMethod;
-    data?: IRequestOptionsData;
+    data?: IRequestOptionsData | number;
     headers?: Record<string, string>;
     timeout?: number;
 }
 
-export type IRequestOptionsData = Record<string, string>;
+export interface IRequestOptions {
+    method?: EMethod;
+    data?: IRequestOptionsData | number | FormData;
+    headers?: Record<string, string>;
+    timeout?: number;
+}
+
+export type IRequestOptionsData = Partial<Record<string, string | number | number[]>>;
 
 export type IBlockProps = Record<string, any>;
 
@@ -21,3 +28,7 @@ export interface IFormElementProps extends IBlockProps {
     onBlur?: (event: SubmitEvent) => void;
     onInput?: (event: SubmitEvent) => void;
 }
+
+export type Indexed<T = any> = {
+    [key in string]: T;
+};

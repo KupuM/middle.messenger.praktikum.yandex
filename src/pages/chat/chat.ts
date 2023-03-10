@@ -1,86 +1,163 @@
 import Block from 'core/block';
-import { type IBlockProps } from 'core/models';
+import { connect } from 'core/connect';
+import { authorizationController, chatsController } from 'core/controllers';
+import { ERoutes } from 'core/enums';
+import { type Indexed, type IBlockProps } from 'core/models';
+import Router from 'core/router';
+import store, { type IState } from 'core/store';
 import { formSubmitHandler } from 'core/utils';
 import './chat.scss';
 
-export class Chat extends Block<IBlockProps> {
+interface IChatData extends IBlockProps {
+    id?: number;
+    title?: string;
+    avatar?: string;
+    created_by?: number;
+    unread_count?: number;
+}
+
+interface IChatProps extends IBlockProps {
+    chats?: IChatData;
+}
+
+const router = new Router('.app');
+
+class Chat extends Block<IChatProps> {
     static componentName = 'Chat';
+    private readonly storeData: IState["app"];
 
     constructor() {
         super();
 
+        this.storeData = store.getState();
+        ((this.storeData?.user?.id) == null) && authorizationController.getUserInfo();
+        !this.props.chats && chatsController.getChats({ offset: 0, limit: 100, title: '' });
+
         this.setProps({
+            chats: this.storeData?.chats,
+            chatsList: this.storeData?.chats,
             onClickSubmit: (event: SubmitEvent) => {
-                formSubmitHandler(event, this);
+                formSubmitHandler(event, this, chatsController.sendMessage);
             },
+            onClickLinkProfile: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.PROFILE);
+            },
+            onClickAddNewChat: (event: SubmitEvent) => {
+                event.preventDefault();
+                this.onClickAddNewChat();
+            },
+            onInputChatsSearchKeyUp: (event: InputEvent) => {
+                event.preventDefault();
+
+                const typewatch = function () {
+                    let timer = 0;
+                    return function (callback: () => void, time: number) {
+                        clearTimeout(timer);
+                        timer = setTimeout(callback, time);
+                    }
+                }();
+
+                const keyUpThrottle = () => {
+                    const inputElement = event.target as HTMLInputElement;
+                    const inputValue = inputElement.value;
+                    store.setState('app.searchText', inputValue)
+                    const newChatsList = this.props.chats?.filter(({ title }: { title: string }) => title.includes(inputValue));
+                    this.setProps({ ...this.props, chatsList: newChatsList });
+                }
+
+                typewatch(keyUpThrottle, 1000);
+            }
         });
     }
 
+    protected onClickAddNewChat(): void {
+        const modal = document.querySelector(".modal-create-chat") as HTMLElement;
+        const overlay = document.querySelector(".overlay-modal") as HTMLElement;
+        const closeButton = document.querySelector(".modal__close-modal-create-chat") as HTMLElement;
+        modal.style.display = "flex";
+        overlay.style.display = "block";
+
+        window.onclick = function (event) {
+            if (event.target === overlay) {
+                modal.style.display = "none";
+                overlay.style.display = "none";
+            }
+        }
+
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+            overlay.style.display = "none";
+        }
+    }
+
     protected render(): string {
+        const userId = this.storeData?.user?.id ?? 'none';
+        const { activeChatToken } = this.props;
+
         return `
             <div class='chat'>
                 <div class='chat-list-panel'>
                     <div class='chat-list-panel__header'>
                         <nav class='chat-list-panel-nav'>
-                            <a class='chat-list-panel-nav__link link' href='settings'>Профиль</a>
+                            {{{Link onClick=onClickAddNewChat href="#!" title="✚ Новый чат" className="chat-list-panel-nav__link link_green"}}}
+                            {{{Link onClick=onClickLinkProfile title="Профиль" className="chat-list-panel-nav__link text_gray"}}}
                         </nav>
                         <div class='chat-list-panel-search'>
-                            <input class='chat-list-panel-search__search-input' type='search' placeholder='Поиск' />
+                            {{{Input
+                                name="chats-search"
+                                id="chats-search"
+                                class="chat-list-panel-search__search-input"
+                                type='search'
+                                placeholder="Поиск"
+                                value=searchText
+                                onBlur=onBlurChatsSearch
+                                onFocus=onFocusChatsSearch
+                                onInput=onInputChatsSearch
+                                onKeyUp=onInputChatsSearchKeyUp
+                            }}}
+                            <!--input class='chat-list-panel-search__search-input' type='search' placeholder='Поиск' /-->
                         </div>
                     </div>
                     <div class='chat-list'>
-                        {{{ChatListElement
-                            display_name="Имя"
-                            message="Отображать текст последнего сообщения..."
-                            time="10:49"
-                            message-count="1"
-                        }}}
-                        {{{ChatListElement
-                            display_name="Имя"
-                            message="Отображать текст последнего сообщения..."
-                            time="10:49"
-                            message-count="1"
-                        }}}
-                        {{{ChatListElement
-                            display_name="Имя"
-                            message="Отображать текст последнего сообщения..."
-                            time="10:49"
-                            message-count="1"
-                        }}}
-                        {{{ChatListElement
-                            display_name="Имя"
-                            message="Отображать текст последнего сообщения..."
-                            time="10:49"
-                            message-count="1"
-                        }}}
+                        {{#each chatsList}}
+                            {{{ChatListElement
+                                chatId=id
+                                activeChatToken=${activeChatToken}
+                                userId=${userId}
+                                display_name=title
+                                message=last_message
+                                time=time
+                                chatAvatar=avatar
+                                message_count=unread_count
+                            }}}
+                        {{/each}}
                     </div>
                 </div>
-                <main class="chat-content">
-                    <div class="chat-content__header">
-                        <div class="chat-avatar"></div>
-                        <div class="chat-title">Имя</div>
-                        <div class="chat-settings"></div>
-                    </div>
-                    <div class="chat-content__body">
-                        {{{ChatItem
-                            message="Привет, друзья! У меня для вас особенный выпуск новостей!..."
-                            time="10:49"
-                            position="left"
-                        }}}
-                        {{{ChatItem
-                            message="Привет, друзья! У меня для вас особенный выпуск новостей!..."
-                            time="10:50"
-                            position="left"
-                        }}}
-                        {{{ChatItem
-                            message="Привет."
-                            time="✔ 10:49"
-                            position="right"
-                        }}}
-                    </div>
-                    {{{TextArea name="message" onClickSubmit=onClickSubmit ref="message"}}}          
-                </main>
+                {{#if activeChatToken}}
+                    {{{ChatBlock}}}
+                {{else}}
+                    <main class="chat-content">
+                        <div class="chat-content__blank">Выберите чат чтобы отправить сообщение</div>
+                    </main>
+                {{/if}} 
+                {{{ModalCreateNewChat}}}
+                {{{ModalAddUser}}}
+                {{{ModalDeleteUser}}}
+                {{{ModalAddChatAvatar}}}
             </div>
         `;
     }
 }
+
+const mapStateToProps = (state: Indexed) => {
+    return {
+        chats: state?.chats,
+        chatsList: state?.chats,
+        activeChat: state?.activeChat,
+        activeChatToken: state?.activeChatToken,
+        searchText: state?.searchText,
+    };
+}
+
+export default connect(mapStateToProps)(Chat);

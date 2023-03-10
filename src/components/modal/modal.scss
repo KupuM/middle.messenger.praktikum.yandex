@@ -1,0 +1,82 @@
+.overlay {
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    transition: 0.3s all;
+}
+
+.modal {
+    opacity: 1;
+    visibility: visible;
+    width: 340px;
+    min-height: 257px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    text-align: center;
+    border-radius: 3px;
+    background-color: var(--white-color);
+    transition: 0.3s all;
+    box-sizing: border-box;
+    padding: 40px 30px;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: var(--font-noto-sans-display-medium);
+
+    .modal__close {
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        fill: var(--black-color);
+        cursor: pointer;
+    }
+
+    .modal__title {
+        font-family: var(--font-noto-sans-display-medium);
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .modal__title_alert {
+        font-size: 16px;
+        color: var(--red-alert-color);
+    }
+
+    .modal__content {
+        font-size: 14px;
+        color: var(--gray-color);
+
+        .modal__form {
+            margin-top: 40px;
+        }
+
+        .modal__link {
+            font-size: 12px;
+            display: block;
+            width: 122px;
+            margin: auto auto;
+            text-decoration: underline;
+        }
+    }
+
+    .modal__alert-under-button {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--red-alert-color);
+    }
+}

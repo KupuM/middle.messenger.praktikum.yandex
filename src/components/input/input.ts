@@ -4,8 +4,16 @@ import { type IFormElementProps } from 'core/models';
 export class Input extends Block<IFormElementProps> {
     static componentName = 'Input';
 
-    constructor({ onBlur, onFocus, onInput, ...props }: IFormElementProps) {
-        super({ ...props, events: { blur: onBlur, focus: onFocus, input: onInput } });
+    constructor({ onBlur, onFocus, onInput, onKeyUp, ...props }: IFormElementProps) {
+        super({
+            ...props,
+            events: {
+                blur: onBlur,
+                focus: onFocus,
+                input: onInput,
+                keyup: onKeyUp,
+            }
+        });
     }
 
     render() {
@@ -17,6 +25,8 @@ export class Input extends Block<IFormElementProps> {
                     type="{{type}}"
                     value="{{value}}"
                     placeholder="{{placeholder}}"
+                    readonly
+                    onfocus="this.removeAttribute('readonly')"
                     {{#if disabled}}
                         disabled
                     {{/if}}

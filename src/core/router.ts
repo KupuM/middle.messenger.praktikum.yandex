@@ -1,6 +1,7 @@
 import type Block from './block';
-import { type ERoutes } from './enums';
+import { ERedirectType, type ERoutes } from './enums';
 import Route from './route';
+import { checkAuthorization } from './utils';
 
 export default class Router {
     private static __instance: Nullable<Router> = null;
@@ -18,8 +19,8 @@ export default class Router {
         Router.__instance = this;
     }
 
-    use(pathname: ERoutes, block: Function & { prototype: Block }): Router {
-        const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+    use(pathname: ERoutes, block: Function & { prototype: Block }, redirectType?: ERedirectType, redirectPathname?: string): Router {
+        const route = new Route(pathname, block, { rootQuery: this._rootQuery }, redirectType, redirectPathname);
         this.routes.push(route);
 
         return this;
@@ -42,7 +43,6 @@ export default class Router {
         if (this._currentRoute !== null) {
             this._currentRoute.leave();
         }
-
         this._currentRoute = route;
         route.render();
     }
@@ -62,6 +62,23 @@ export default class Router {
 
     getRoute(pathname: string) {
         const route = this.routes?.find(route => route.match(pathname));
-        return route !== null ? route : this.routes.find(route => route.match('*'));
+        const redirectType = this.routes?.find(route => route.match(pathname) && route.redirectType)?.redirectType;
+        const redirectPathame = this.routes?.find(route => route.match(pathname) && route.redirectPathname)?.redirectPathname;
+
+        if (redirectType && redirectPathame) {
+            if (redirectType === ERedirectType.AUTHORIZED && checkAuthorization()) {
+                this.go(redirectPathame);
+                return this.routes.find(route => route.match(redirectPathame));
+            } else if (redirectType === ERedirectType.GUEST && !checkAuthorization()) {
+                this.go(redirectPathame);
+                return this.routes.find(route => route.match(redirectPathame));
+            }
+        }
+
+        return route ?? this.routes.find(route => route.match('*'));
+    }
+
+    getPathName(): string {
+        return window.location.pathname;
     }
 }

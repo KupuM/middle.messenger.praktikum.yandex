@@ -9,7 +9,7 @@ export class ProfileFormElement extends Block<IFormElementProps> {
         super(props);
 
         this.setProps({
-            onFocus: event => {
+            onFocus: () => {
                 elementCheckerWithClearValue(this);
             },
             onBlur: () => {

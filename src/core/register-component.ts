@@ -3,7 +3,7 @@ import * as Handlebars from 'handlebars';
 import { type HelperOptions } from 'handlebars';
 
 interface BlockConstructable<Props = any> {
-    new (props: Props): Block;
+    new(props: Props): Block;
     componentName: string;
 }
 

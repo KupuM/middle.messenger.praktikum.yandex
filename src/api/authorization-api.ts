@@ -1,8 +1,9 @@
+import { BASE_API_URL_PATH } from 'core/constants';
 import { type IRequestOptionsData } from 'core/models';
 import HTTPTransport from 'core/services/http-transport';
 
 const authorizationApiInstance = new HTTPTransport();
-const authorizationApiUrlPath = 'https://ya-praktikum.tech/api/v2/auth';
+const authorizationApiUrlPath = BASE_API_URL_PATH + '/auth';
 
 export interface ISignUp extends IRequestOptionsData {
     first_name: string;

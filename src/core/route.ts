@@ -1,4 +1,5 @@
 import type Block from './block';
+import { type ERedirectType } from './enums';
 import renderDOM from './render-dom';
 
 export default class Route {
@@ -6,12 +7,16 @@ export default class Route {
     private readonly _blockClass: Function & { prototype: Block };
     private _block: Nullable<Block>;
     private readonly _props: Record<string, any>;
+    readonly redirectType?: ERedirectType;
+    readonly redirectPathname?: string;
 
-    constructor(pathname: string, view: Function & { prototype: Block }, props: Record<string, any>) {
+    constructor(pathname: string, view: Function & { prototype: Block }, props: Record<string, any>, redirectType?: ERedirectType, redirectPathname?: string) {
         this._pathname = pathname;
         this._blockClass = view;
         this._block = null;
         this._props = props;
+        this.redirectType = redirectType;
+        this.redirectPathname = redirectPathname;
     }
 
     navigate(pathname: string): void {

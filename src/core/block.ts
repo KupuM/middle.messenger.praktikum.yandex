@@ -88,6 +88,7 @@ export default abstract class Block<P extends object = {}> {
         if (!response) {
             return;
         }
+
         this._render();
     }
 
@@ -207,10 +208,17 @@ export default abstract class Block<P extends object = {}> {
             if (stub == null) {
                 return;
             }
+
             stub.replaceWith(child.getContent());
 
             const content = child.getContent();
             stub.replaceWith(content);
+
+            const stubChilds = stub.childNodes?.length > 0 ? stub.childNodes : [];
+            const layoutContent = content.querySelector('[data-layout="1"]');
+            if ((Boolean(layoutContent)) && stubChilds.length > 0) {
+                layoutContent?.append(...stubChilds)
+            }
         });
 
         return fragment.content;
