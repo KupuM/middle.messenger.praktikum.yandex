@@ -132,18 +132,18 @@ class ChatBlock extends Block<IBlockProps> {
                             <div class="chat-settings">
                                 <input type="checkbox" id="chat-settings-button" class="reference" />
                                 <label for="chat-settings-button">&nbsp;</label>
-                                <ul class="chat-settinds__menu">
-                                    <li class="chat-settinds-menu__item">
+                                <ul class="chat-settings__menu">
+                                    <li class="chat-settings-menu__item">
                                         {{{Link onClick=onClickAddUsetToChat href="#!" title="✚ Добавить пользователя" className="chat-list-panel-nav__link link_green"}}}
                                     </li>
-                                    <li class="chat-settinds-menu__item">
+                                    <li class="chat-settings-menu__item">
                                         {{{Link onClick=onClickDeleteUserFromChat href="#!" title="✖ Удалить пользователя" className="chat-list-panel-nav__link link_red-alert"}}}
                                     </li>
-                                    <li class="chat-settinds-menu__item"></li>
-                                    <li class="chat-settinds-menu__item">
+                                    <li class="chat-settings-menu__item"></li>
+                                    <li class="chat-settings-menu__item">
                                         {{{Link onClick=onClickAddChatAvatar href="#!" title="✚ Добавить чат–аватар" className="chat-list-panel-nav__link link_green"}}}
                                     </li>
-                                    <li class="chat-settinds-menu__item">
+                                    <li class="chat-settings-menu__item">
                                     {{{Link onClick=onClickDeleteChat href="#!" title="✖ Удалить чат" className="chat-list-panel-nav__link link_red-alert"}}}
                                 </li>
                                 </ul>

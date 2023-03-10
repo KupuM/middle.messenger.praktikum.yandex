@@ -1,4 +1,4 @@
-@import 'https://fonts.googleapis.com/css2?family=Noto+Sans+Display&family=Noto+Sans:wght@500;600&display=swap';
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+Display&family=Noto+Sans:wght@500;600&display=swap";
 
 :root {
     --black-color: #313131;
@@ -9,8 +9,8 @@
     --light-blue-color: #e4edfd;
     --light-green-color: #26bd1b;
     --red-alert-color: #f25a47;
-    --font-noto-sans: 'Noto Sans', sans-serif;
-    --font-noto-sans-display-medium: 'Noto Sans Display', sans-serif;
+    --font-noto-sans: "Noto Sans", sans-serif;
+    --font-noto-sans-display-medium: "Noto Sans Display", sans-serif;
 }
 
 html,
@@ -72,7 +72,7 @@ body {
     position: relative;
 }
 
-.input-link[type='file'] {
+.input-link[type="file"] {
     opacity: 0;
     position: absolute;
     top: 0;
@@ -82,9 +82,9 @@ body {
     cursor: pointer;
 }
 
-.input-link:valid + .input-link-text:after {
+.input-link:valid + .input-link-text::after {
     color: var(--light-green-color);
-    content: ' ✔';
+    content: " ✔";
 }
 
 .dev-menu {

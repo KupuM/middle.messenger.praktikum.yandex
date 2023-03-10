@@ -46,7 +46,7 @@
             padding-left: 0;
         }
 
-        .profile-element-input[type='password'] {
+        .profile-element-input[type="password"] {
             font-family: Arial, Helvetica, sans-serif;
             letter-spacing: 0.2em;
         }
@@ -95,5 +95,5 @@
     transform: translateY(-50%) translateX(-50%);
     width: 28px;
     height: 28px;
-    background-image: url('./images/back_icon.svg');
+    background-image: url("./images/back_icon.svg");
 }
