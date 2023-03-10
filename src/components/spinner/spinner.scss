@@ -1,0 +1,11 @@
+.spinner {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background-image: url("./images/spinner.gif");
+    background-size: 60px 60px;
+}

@@ -1,9 +1,24 @@
 import Block from 'core/block';
-import { IBlockProps } from 'core/models';
+import { ERoutes } from 'core/enums';
+import { type IBlockProps } from 'core/models';
+import Router from 'core/router';
 import '../error.scss';
 
-export default class Error404 extends Block<IBlockProps> {
+const router = new Router('.app');
+
+export class Error404 extends Block<IBlockProps> {
     static componentName = 'Error404';
+
+    constructor() {
+        super();
+
+        this.setProps({
+            onClickLinkBackToChats: (event: SubmitEvent) => {
+                event.preventDefault();
+                router.go(ERoutes.CHAT);
+            },
+        });
+    }
 
     protected render(): string {
         return `
@@ -13,9 +28,9 @@ export default class Error404 extends Block<IBlockProps> {
                     <p class="error-page__paragraph">Страница не найдена.</p>
                 </section>
                 <section class="error-page__footer">
-                {{{Link href="../../chat/chat.html" title="Назад к чатам" color-class="link_green"}}}
+                    {{{Link onClick=onClickLinkBackToChats title="Назад к чатам2" className="link_green"}}}
                 </section>
             </main>
-        `
+        `;
     }
-} 
+}
