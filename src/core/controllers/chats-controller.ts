@@ -9,7 +9,10 @@ class ChatsController {
         void chatsAPI.createChat(data).then(data => {
             try {
                 if (data.status === ERequestStatus.OK) {
-                    store.setState('app.formErrorText', '');
+                    store.setState('app', {
+                        formErrorText: '',
+                        messages: undefined,
+                    });
                     chatsController.getChats({ offset: 0, limit: 100, title: '' });
                 } else {
                     alert(EErrorText.TRY_AGAIN_LATER);

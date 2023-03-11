@@ -58,11 +58,12 @@ class WebsocketService {
 
     private onMessage(event: MessageEvent) {
         const data = JSON.parse(event.data);
-
         if (Array.isArray(data)) {
             chatsController.addMessages(data);
         } else if (typeof data === "object" && data?.type === "message") {
             chatsController.addMessages([data]);
+        } else {
+            chatsController.addMessages([]);
         }
     }
 

@@ -58,8 +58,11 @@ class AuthorizationController {
         void authorizationAPI.getUserInfo().then(data => {
             try {
                 const response = JSON.parse(data.response);
-                if (data.status === ERequestStatus.OK && !(response instanceof SyntaxError)) {
+                if (data.status === ERequestStatus.OK) {
                     store.setState('app.user', response);
+                } else if (response.reason === 'Cookie is not valid') {
+                    deleteCookie('isLoggedIn');
+                    router.go(ERoutes.LOGIN);
                 } else {
                     alert(EErrorText.TRY_AGAIN_LATER);
                 }
