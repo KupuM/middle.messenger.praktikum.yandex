@@ -1,1 +1,1 @@
-export { FormElement as default} from './form-element';
+export { FormElement as default } from './form-element';

@@ -22,6 +22,18 @@ body {
     color: var(--black-color);
 }
 
+.text-center {
+    text-align: center;
+}
+
+.pt-1 {
+    padding-top: 16px;
+}
+
+.pb-1 {
+    padding-bottom: 16px;
+}
+
 .button {
     width: 280px;
     height: 38px;
@@ -46,6 +58,33 @@ body {
 
 .link_red-alert {
     color: var(--red-alert-color);
+}
+
+.text_gray {
+    color: var(--gray-color);
+}
+
+.text_black {
+    color: var(--black-color);
+}
+
+.upload-link {
+    position: relative;
+}
+
+.input-link[type="file"] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 33px;
+    cursor: pointer;
+}
+
+.input-link:valid + .input-link-text::after {
+    color: var(--light-green-color);
+    content: " ✔";
 }
 
 .dev-menu {

@@ -3,13 +3,13 @@ import { nanoid } from 'nanoid';
 import EventBus from './event-bus';
 
 export default abstract class Block<P extends object = {}> {
-
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_CDU: 'flow:component-did-update',
         FLOW_RENDER: 'flow:render',
     } as const;
+
     static componentName: string;
 
     id = nanoid();
@@ -18,9 +18,9 @@ export default abstract class Block<P extends object = {}> {
     protected props: P;
     protected children: Record<string, Block<P>>;
     protected state: any = {};
-    protected refs: { [key: string]: Block<P> } = {};
+    protected refs: Record<string, Block<P>> = {};
 
-    private _eventBus: () => EventBus;
+    private readonly _eventBus: () => EventBus;
 
     constructor(propsAndChildren: P = {} as P) {
         const { props, children } = this._getPropsAndChildren(propsAndChildren);
@@ -58,7 +58,7 @@ export default abstract class Block<P extends object = {}> {
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
 
-    private _createResources (): void {
+    private _createResources(): void {
         this._element = this._createDocumentElement('div');
     }
 
@@ -75,7 +75,9 @@ export default abstract class Block<P extends object = {}> {
         this.componentDidMount();
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        return null;
+    }
 
     dispatchComponentDidMount() {
         this._eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -86,6 +88,7 @@ export default abstract class Block<P extends object = {}> {
         if (!response) {
             return;
         }
+
         this._render();
     }
 
@@ -94,15 +97,15 @@ export default abstract class Block<P extends object = {}> {
     }
 
     setProps = (nextProps: P): void => {
-        if (!nextProps) {
+        if (Object.entries(nextProps).length === 0) {
             return;
         }
 
         Object.assign(this.props, nextProps);
     };
 
-    setState = (nextState: any): void => {
-        if (!nextState) {
+    setState = (nextState: P): void => {
+        if (Object.entries(nextState).length === 0) {
             return;
         }
 
@@ -113,35 +116,35 @@ export default abstract class Block<P extends object = {}> {
         return this._element;
     }
 
-    private _render (): void {
-        const fragment = this._compile()
-    
-        this._removeEvents()
-        const newElement = fragment.firstElementChild
-    
+    private _render(): void {
+        const fragment = this._compile();
+
+        this._removeEvents();
+        const newElement = fragment.firstElementChild;
+
         if (newElement != null) {
-          this._element?.replaceWith(newElement)
+            this._element?.replaceWith(newElement);
         }
-    
-        this._element = newElement as HTMLElement
-        this._addEvents()
-      }
+
+        this._element = newElement as HTMLElement;
+        this._addEvents();
+    }
 
     protected render(): string {
         return '';
     }
 
     getContent(): HTMLElement {
-		if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-			setTimeout(() => {
-				if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
-					this._eventBus().emit(Block.EVENTS.FLOW_CDM);
-				}
-			}, 100);
-		}
+        if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+            setTimeout(() => {
+                if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
+                    this._eventBus().emit(Block.EVENTS.FLOW_CDM);
+                }
+            }, 100);
+        }
 
-		return this.element!;
-	}
+        return this.element!;
+    }
 
     private _makePropsProxy(props: any) {
         // TODO Можно и так передать this
@@ -172,10 +175,10 @@ export default abstract class Block<P extends object = {}> {
     private _addEvents() {
         const events: Record<string, () => void> = (this.props as any).events;
 
-        if (!events || !this.element) {
+        if (events === undefined || Object.entries(events).length === 0 || this.element == null) {
             return;
         }
-        
+
         Object.entries(events).forEach(([event, listener]) => {
             this.element?.addEventListener(event, listener);
         });
@@ -184,10 +187,10 @@ export default abstract class Block<P extends object = {}> {
     private _removeEvents() {
         const events: Record<string, () => void> = (this.props as any).events;
 
-        if (!events || !this.element) {
+        if (events === undefined || Object.entries(events).length === 0 || this.element == null) {
             return;
         }
-        
+
         Object.entries(events).forEach(([event, listener]) => {
             this.element?.removeEventListener(event, listener);
         });
@@ -202,15 +205,22 @@ export default abstract class Block<P extends object = {}> {
         Object.entries(this.children).forEach(([id, child]) => {
             const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 
-            if (!stub) {
+            if (stub == null) {
                 return;
             }
+
             stub.replaceWith(child.getContent());
 
             const content = child.getContent();
             stub.replaceWith(content);
+
+            const stubChilds = stub.childNodes?.length > 0 ? stub.childNodes : [];
+            const layoutContent = content.querySelector('[data-layout="1"]');
+            if ((Boolean(layoutContent)) && stubChilds.length > 0) {
+                layoutContent?.append(...stubChilds)
+            }
         });
 
         return fragment.content;
-    }    
+    }
 }

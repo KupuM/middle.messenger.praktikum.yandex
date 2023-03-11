@@ -13,5 +13,6 @@
         "strictNullChecks": true,
         "resolveJsonModule": true,
         "esModuleInterop": true
-   }
+    },
+    "typeRoots": [".src/types"]
 }
