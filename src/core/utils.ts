@@ -152,6 +152,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
     return lhs;
 }
 
+/* Функция создания объекта. */
 export function setObject(object: Indexed, path: string, value: unknown): Indexed {
     if (typeof object !== 'object' || object === null) {
         return object;
