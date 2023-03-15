@@ -17,12 +17,8 @@
         "build:prod": "webpack --mode=production --node-env=production",
         "watch": "webpack --watch",
         "test": "npx mocha -r ts-node/register src/**/*.spec.ts",
-        "prepare": "husky install"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "npm run lint && npm run stylelint"
-        }
+        "prepare": "husky install",
+        "pre-commit": "npm run lint && npm run stylelint"
     },
     "alias": {
         "core": "./src/core",
