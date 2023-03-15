@@ -54,7 +54,7 @@ class Chat extends Block<IChatProps> {
                     let timer = 0;
                     return function (callback: () => void, time: number) {
                         clearTimeout(timer);
-                        timer = setTimeout(callback, time);
+                        timer = window.setTimeout(callback, time);
                     }
                 }();
 

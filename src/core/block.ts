@@ -92,7 +92,7 @@ export default abstract class Block<P extends object = {}> {
         this._render();
     }
 
-    componentDidUpdate(oldProps: P, newProps: P) {
+    componentDidUpdate(_oldProps: P, _newProps: P) {
         return true;
     }
 

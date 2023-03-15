@@ -1,3 +1,4 @@
+import './index.scss';
 import { Avatar } from 'components/avatar/avatar';
 import Button from 'components/button';
 import { ChatBlock } from 'components/chat-block';
