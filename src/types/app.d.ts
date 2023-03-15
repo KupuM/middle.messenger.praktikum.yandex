@@ -4,4 +4,4 @@ declare global {
     export type Values<T extends Record<string, unknown>> = T[Keys<T>];
 }
 
-export {};
+export { };

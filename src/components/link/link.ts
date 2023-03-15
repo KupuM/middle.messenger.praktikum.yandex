@@ -1,21 +1,19 @@
 import Block from 'core/block';
-import { IBlockProps } from 'core/models';
+import { type IFormElementProps, type IBlockProps } from 'core/models';
 
 export class Link extends Block<IBlockProps> {
     static componentName = 'Link';
 
-    constructor(props) {
+    constructor({ onClick, ...props }: IFormElementProps) {
         super({
             ...props,
             events: {
-                click: () => props.onClick
-            }
+                click: onClick,
+            },
         });
     }
 
-    render() {
-        return(
-            `<a href="{{href}}" class="link {{color-class}}" title="{{title}}">{{title}}</a>`
-        );
+    protected render() {
+        return `<a href="{{href}}" onClick="{{onClick}}" class="link {{className}}" title="{{title}}">{{title}}</a>`;
     }
 }

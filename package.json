@@ -5,8 +5,8 @@
     "engine": ">=12",
     "source": "index.hbs",
     "scripts": {
-        "dev": "parcel ./src/pages/*.hbs  --port 3000 --no-cache --open",
-        "build": "parcel build ./src/pages/*.hbs",
+        "dev": "parcel ./src/index.html  --port 3000 --no-cache --open",
+        "build": "parcel build ./src/index.html",
         "serve": "node ./server.js",
         "start": "npm run build && npm run serve",
         "lint": "eslint \"**/*.{ts,tsx}\" --no-error-on-unmatched-pattern",
@@ -17,7 +17,8 @@
     "alias": {
         "core": "./src/core",
         "components": "./src/components",
-        "pages": "./src/pages"
+        "pages": "./src/pages",
+        "api": "./src/api"
     },
     "repository": {
         "type": "git",

@@ -1,23 +1,28 @@
-import Block from "core/block";
-import { IFormElementProps } from "core/models";
-import { elementChecker } from "core/utils";
+import Block from 'core/block';
+import { type IFormElementProps } from 'core/models';
+import { elementChecker } from 'core/utils';
 
 export class FormElement extends Block<IFormElementProps> {
     static componentName = 'FormElement';
 
     constructor(props: IFormElementProps) {
-		super(props);
+        super(props);
 
-		this.setProps({
-			onFocus: () => elementChecker(this),
-            onBlur: () => elementChecker(this),
-            onInput: () => elementChecker(this),
-		});
-	}
-    
+        this.setProps({
+            onFocus: () => {
+                elementChecker(this);
+            },
+            onBlur: () => {
+                elementChecker(this);
+            },
+            onInput: () => {
+                elementChecker(this);
+            },
+        });
+    }
+
     protected render() {
-        return (
-            `
+        return `
                 <div class="login-form__element">
                     {{{Input
                         name=name
@@ -31,7 +36,6 @@ export class FormElement extends Block<IFormElementProps> {
                     }}}
                     <div class="line-input-allert"></div>
                 </div>
-            `
-        );
+            `;
     }
 }
