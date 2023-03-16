@@ -1,4 +1,4 @@
-import type Block from './block';
+import type { Block } from './block';
 
 export default function renderDOM(selector: string, block: Block) {
     const root = document.querySelector(selector);

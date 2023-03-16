@@ -5,7 +5,7 @@
     "engine": ">=12",
     "source": "index.hbs",
     "scripts": {
-        "dev": "webpack --mode=production --node-env=production",
+        "dev": "webpack --mode=development --node-env=production",
         "build": "webpack --mode=production --node-env=production",
         "serve": "webpack serve",
         "start": "npm run build && npm run serve",
@@ -16,7 +16,7 @@
         "build:dev": "webpack --mode=development",
         "build:prod": "webpack --mode=production --node-env=production",
         "watch": "webpack --watch",
-        "test": "npx mocha -r ts-node/register src/**/*.spec.ts",
+        "test": "ts-mocha 'src/**/*.test.ts'",
         "prepare": "husky install",
         "pre-commit": "npm run lint && npm run stylelint"
     },
@@ -37,12 +37,14 @@
     },
     "homepage": "https://github.com/KupuM/middle.messenger.praktikum.yandex#readme",
     "devDependencies": {
-        "@anikin/parcel-transformer-handlebars": "1.0.2",
-        "@parcel/plugin": "2.8.2",
-        "@parcel/transformer-sass": "2.8.2",
+        "@babel/register": "7.21.0",
+        "@types/chai": "4.3.4",
+        "@types/mocha": "10.0.1",
+        "@types/node": "18.15.3",
+        "@types/sinon": "10.0.13",
+        "@types/uuid": "9.0.1",
         "@typescript-eslint/eslint-plugin": "5.50.0",
-        "@typescript-eslint/parser": "5.50.0",
-        "@webpack-cli/generators": "^3.0.1",
+        "chai": "4.3.7",
         "css-loader": "6.7.1",
         "eslint": "8.32.0",
         "eslint-config-prettier": "8.6.0",
@@ -54,15 +56,20 @@
         "eslint-plugin-promise": "6.1.1",
         "html-webpack-plugin": "5.5.0",
         "husky": "8.0.3",
+        "jsdom": "21.1.0",
+        "jsdom-global": "3.0.2",
         "mini-css-extract-plugin": "2.7.3",
-        "parcel": "2.8.2",
+        "mocha": "10.2.0",
         "prettier": "2.8.3",
         "sass": "1.59.3",
         "sass-loader": "13.1.0",
+        "sinon": "15.0.2",
         "style-loader": "3.3.1",
         "stylelint": "14.16.1",
         "stylelint-config-standard-scss": "6.1.0",
         "ts-loader": "9.4.2",
+        "ts-mocha": "10.0.0",
+        "ts-node": "10.9.1",
         "typescript": "4.9.4",
         "webpack": "5.76.1",
         "webpack-cli": "5.0.1",
@@ -71,6 +78,6 @@
     "dependencies": {
         "handlebars": "4.7.7",
         "handlebars-helpers": "0.9.8",
-        "nanoid": "4.0.0"
+        "uuid": "9.0.0"
     }
 }

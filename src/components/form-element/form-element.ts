@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { type IFormElementProps } from 'core/models';
 import { elementChecker } from 'core/utils';
 

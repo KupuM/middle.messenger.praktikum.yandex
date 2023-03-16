@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { connect } from 'core/connect';
 import { BASE_RESOURCES_URL_PATH } from 'core/constants';
 import { chatsController } from 'core/controllers';

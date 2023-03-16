@@ -1,4 +1,4 @@
-import { queryStringify } from 'core/utils';
+import { queryStringify } from '../utils';
 import { NUMBER } from '../constants';
 import { EMethod } from '../enums';
 import { type IRequestOptionsData, type IRequestOptions, type IRequestOptionsGet } from '../models';

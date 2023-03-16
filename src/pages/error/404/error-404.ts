@@ -1,7 +1,7 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { ERoutes } from 'core/enums';
 import { type IBlockProps } from 'core/models';
-import Router from 'core/router';
+import Router from 'core/router/router';
 import '../error.scss';
 
 const router = new Router('.app');

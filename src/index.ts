@@ -13,7 +13,7 @@ import Spinner from 'components/spinner';
 import TextArea from 'components/text-area';
 import { ERedirectType, ERoutes } from 'core/enums';
 import registerComponent from 'core/register-component';
-import Router from 'core/router';
+import Router from 'core/router/router';
 import { Login } from 'pages/authorization/login';
 import { Register } from 'pages/authorization/register';
 import { Chat } from 'pages/chat';

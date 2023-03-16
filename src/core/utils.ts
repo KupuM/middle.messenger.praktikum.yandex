@@ -1,6 +1,6 @@
-import Validator from 'core/services/validator';
 import { EErrorText } from './enums';
 import { type Indexed } from './models';
+import { Validator } from './services/validator';
 
 /* Функция принимает объект и возвращает строку для get-параметров. */
 export const queryStringify = (data: Partial<Record<string, string | number>> | number): string => {

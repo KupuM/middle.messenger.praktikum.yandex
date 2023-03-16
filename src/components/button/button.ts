@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { type IBlockProps } from 'core/models';
 
 export class Button extends Block<IBlockProps> {

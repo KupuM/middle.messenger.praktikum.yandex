@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { BASE_RESOURCES_URL_PATH } from 'core/constants';
 import { type IBlockProps } from 'core/models';
 import store from 'core/store';

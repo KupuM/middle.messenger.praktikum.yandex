@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { type IFormElementProps, type IBlockProps } from 'core/models';
 
 export class Link extends Block<IBlockProps> {

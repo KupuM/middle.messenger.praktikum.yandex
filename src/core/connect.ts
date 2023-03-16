@@ -1,5 +1,5 @@
 import { type Indexed, type IBlockProps } from "./models";
-import type Block from "./block";
+import type { Block } from "./block";
 import { deepEqual } from "./utils";
 import store, { StoreEvents } from "./store";
 

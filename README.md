@@ -16,4 +16,6 @@ figma: https://www.figma.com/file/LE3ED9kNY8JSfzJcyRYUNp/web-chat?node-id=0%3A1&
 
 ## Демонстрационный сайт
 
-https://strong-cupcake-3c0ae0.netlify.app/
+netlify: https://strong-cupcake-3c0ae0.netlify.app/
+
+render.com: https://strong-cupcake-3c0ae0.netlify.app/
