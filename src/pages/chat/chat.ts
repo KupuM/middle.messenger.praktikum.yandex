@@ -1,9 +1,9 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { connect } from 'core/connect';
 import { authorizationController, chatsController } from 'core/controllers';
 import { ERoutes } from 'core/enums';
 import { type Indexed, type IBlockProps } from 'core/models';
-import Router from 'core/router';
+import Router from 'core/router/router';
 import store, { type IState } from 'core/store';
 import { formSubmitHandler } from 'core/utils';
 import './chat.scss';
@@ -54,7 +54,7 @@ class Chat extends Block<IChatProps> {
                     let timer = 0;
                     return function (callback: () => void, time: number) {
                         clearTimeout(timer);
-                        timer = setTimeout(callback, time);
+                        timer = window.setTimeout(callback, time);
                     }
                 }();
 

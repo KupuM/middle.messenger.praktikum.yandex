@@ -1,9 +1,9 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { connect } from 'core/connect';
 import { authorizationController } from 'core/controllers';
 import { ERoutes } from 'core/enums';
 import { type Indexed, type IFormElementProps } from 'core/models';
-import Router from 'core/router';
+import Router from 'core/router/router';
 import store from 'core/store';
 import '../profile.scss';
 

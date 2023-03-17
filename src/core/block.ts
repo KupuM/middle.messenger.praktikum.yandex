@@ -1,8 +1,10 @@
 import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
 import EventBus from './event-bus';
 
-export default abstract class Block<P extends object = {}> {
+type Nullable<T> = T | null;
+
+export abstract class Block<P extends object = {}> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -12,10 +14,11 @@ export default abstract class Block<P extends object = {}> {
 
     static componentName: string;
 
-    id = nanoid();
+    id = uuidv4();
+
+    props: P;
 
     protected _element: Nullable<HTMLElement> = null;
-    protected props: P;
     protected children: Record<string, Block<P>>;
     protected state: any = {};
     protected refs: Record<string, Block<P>> = {};
@@ -92,7 +95,7 @@ export default abstract class Block<P extends object = {}> {
         this._render();
     }
 
-    componentDidUpdate(oldProps: P, newProps: P) {
+    componentDidUpdate(_oldProps: P, _newProps: P) {
         return true;
     }
 
@@ -214,9 +217,10 @@ export default abstract class Block<P extends object = {}> {
             const content = child.getContent();
             stub.replaceWith(content);
 
-            const stubChilds = stub.childNodes?.length > 0 ? stub.childNodes : [];
+            const stubChilds = stub.childNodes;
             const layoutContent = content.querySelector('[data-layout="1"]');
             if ((Boolean(layoutContent)) && stubChilds.length > 0) {
+                // @ts-expect-error
                 layoutContent?.append(...stubChilds)
             }
         });

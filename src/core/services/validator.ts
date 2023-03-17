@@ -1,4 +1,4 @@
-export default class Validator {
+export class Validator {
     checkOnlyLatinic(value: string): boolean {
         return /^[a-zA-Z0-9]+$/.test(value);
     }

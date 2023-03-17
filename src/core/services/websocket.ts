@@ -10,13 +10,13 @@ class WebsocketService {
             this.socket.close();
         }
 
-        if (this.socketInterval) {
+        if (this.socketInterval !== null && this.socketInterval !== undefined) {
             clearInterval(this.socketInterval);
         }
 
         const webSocketUrl = WS_CHATS_URL_PATH + `/${userId!}/${chatId}/${token}`;
         this.socket = new WebSocket(webSocketUrl);
-        this.socketInterval = setInterval(this.ping.bind(this), 20000);
+        this.socketInterval = window.setInterval(this.ping.bind(this), 20000);
 
         this.socket.addEventListener("open", () => {
             this.loadOldMessage();

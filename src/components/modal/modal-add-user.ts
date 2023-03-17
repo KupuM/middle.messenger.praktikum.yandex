@@ -1,4 +1,4 @@
-import Block from 'core/block';
+import { Block } from 'core/block';
 import { connect } from 'core/connect';
 import { chatsController } from 'core/controllers';
 import { type Indexed, type IFormElementProps } from 'core/models';
