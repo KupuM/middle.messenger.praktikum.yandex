@@ -1,6 +1,6 @@
 import store from 'core/store';
 import { EAlertText, EErrorText, ERequestStatus, ERoutes } from 'core/enums';
-import Router from 'core/router';
+import Router from 'core/router/router';
 import { type IUserProfile, userAPI, type IUserPassword } from 'api/user-api';
 
 const router = new Router('.app');

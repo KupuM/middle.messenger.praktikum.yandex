@@ -1,6 +1,8 @@
-import type Block from './block';
-import { type ERedirectType } from './enums';
-import renderDOM from './render-dom';
+import type { Block } from '../block';
+import { type ERedirectType } from '../enums';
+import renderDOM from '../render-dom';
+
+type Nullable<T> = T | null;
 
 export default class Route {
     private _pathname: string;

@@ -2,7 +2,7 @@ import { authorizationAPI, type ISignIn, type ISignUp } from 'api/authorization-
 import store from 'core/store';
 import { deleteCookie, setCookie } from 'core/utils';
 import { EErrorText, ERequestStatus, ERoutes } from 'core/enums';
-import Router from 'core/router';
+import Router from 'core/router/router';
 
 const router = new Router('.app');
 

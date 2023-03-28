@@ -1,14 +1,16 @@
-import type Block from './block';
-import { ERedirectType, type ERoutes } from './enums';
+import type { Block } from '../block';
+import { ERedirectType, type ERoutes } from '../enums';
 import Route from './route';
-import { checkAuthorization } from './utils';
+import { checkAuthorization } from '../utils';
+
+type Nullable<T> = T | null;
 
 export default class Router {
     private static __instance: Nullable<Router> = null;
     private readonly routes: Route[] = [];
     private readonly history = window.history;
     private _currentRoute: Nullable<Route> = null;
-    private readonly _rootQuery: string;
+    private readonly _rootQuery: string | undefined;
 
     constructor(rootQuery: string) {
         if (Router.__instance !== null) {

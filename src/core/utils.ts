@@ -1,6 +1,6 @@
-import Validator from 'core/services/validator';
 import { EErrorText } from './enums';
 import { type Indexed } from './models';
+import { Validator } from './services/validator';
 
 /* Функция принимает объект и возвращает строку для get-параметров. */
 export const queryStringify = (data: Partial<Record<string, string | number>> | number): string => {
@@ -152,6 +152,7 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
     return lhs;
 }
 
+/* Функция создания объекта. */
 export function setObject(object: Indexed, path: string, value: unknown): Indexed {
     if (typeof object !== 'object' || object === null) {
         return object;

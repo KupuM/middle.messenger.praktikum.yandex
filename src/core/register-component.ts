@@ -1,9 +1,9 @@
-import type Block from './Block';
 import * as Handlebars from 'handlebars';
 import { type HelperOptions } from 'handlebars';
+import { type IBlockProps } from './models';
 
 interface BlockConstructable<Props = any> {
-    new(props: Props): Block;
+    new(props: Props): IBlockProps;
     componentName: string;
 }
 
